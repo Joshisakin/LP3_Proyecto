@@ -1,0 +1,6 @@
+C:\Users\jlove\Source\Repos\LP3_Proyecto\AcceDatos\bin\Debug\AcceDatos.dll
+C:\Users\jlove\Source\Repos\LP3_Proyecto\AcceDatos\bin\Debug\AcceDatos.pdb
+C:\Users\jlove\Source\Repos\LP3_Proyecto\AcceDatos\obj\Debug\AcceDatos.csproj.AssemblyReference.cache
+C:\Users\jlove\Source\Repos\LP3_Proyecto\AcceDatos\obj\Debug\AcceDatos.csproj.CoreCompileInputs.cache
+C:\Users\jlove\Source\Repos\LP3_Proyecto\AcceDatos\obj\Debug\AcceDatos.dll
+C:\Users\jlove\Source\Repos\LP3_Proyecto\AcceDatos\obj\Debug\AcceDatos.pdb
