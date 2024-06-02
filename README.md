@@ -7,10 +7,10 @@ Echo en base a:
 .
 .
 ### Informacion Academica:
-. Alumnos:
+*Alumnos:
 	- Isla Cortegano
 	- Lovera Vieira
-. Docente:
+*Docente:
 	- ING.Francisco Miguel
 
 
