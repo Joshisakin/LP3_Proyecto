@@ -1,4 +1,4 @@
-# LP3_Proyecto
+# LP3_Proyecto ![Icono Institucional](https://enlinea.unapiquitos.edu.pe/images/escudo.png)
 ## *Proyecto de "Sistema de Gestion Portuaria"* 
 Echo en base a:
 1. Net Framework 4.7.2.
