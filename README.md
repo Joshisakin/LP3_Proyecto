@@ -12,5 +12,8 @@ Echo en base a:
 	- Lovera Vieira
 *Docente:
 	- ING.Francisco Miguel
+### Recursos adicionales
+. Documentación de Net Framework 4.7.2: https://dotnet.microsoft.com/en-us/download/dotnet-framework/net472
+. Documentación de Mssql Express Edition 2020: https://www.microsoft.com/en-us/sql-server/sql-server-downloads
 
 
