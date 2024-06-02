@@ -1,5 +1,4 @@
-# ![Icono Institucional](https://enlinea.unapiquitos.edu.pe/images/escudo.png) LP3_Proyecto ![Logo de la Facultad](https://photos.onedrive.com/share/C43453ABDF5EC7C9!3760?cid=C43453ABDF5EC7C9&resId=C43453ABDF5EC7C9!3760&authkey=!ABFl-EpmMxlw8Nk&ithint=photo&e=e24YCk)
-## *Proyecto de "Sistema de Gestion Portuaria"* 
+# ![Icono Institucional](https://enlinea.unapiquitos.edu.pe/images/escudo.png) LP3_Proyecto ![Logo de la Facultad](https://th.bing.com/th/id/OIP.jfH32djj87nM3zsqRq1OogAAAA?rs=1&pid=ImgDetMain)
 Echo en base a:
 1. Net Framework 4.7.2.
 2. Mssql Express Edition 2020 (Base de datos).
