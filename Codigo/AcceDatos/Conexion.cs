@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
-namespace Entidades
+namespace AcceDatos
 {
-    //primer cambio
-    public class Class1
+    internal class Conexion
     {
     }
 }
