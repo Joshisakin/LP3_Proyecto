@@ -12,7 +12,7 @@ Echo en base a:
 - Docente:
 	- MSc. Francisco Miguel Ruiz Hidalgo Ing
 ### Recursos adicionales
-- Documentación de Net Framework 4.7.2: https://dotnet.microsoft.com/en-us/download/dotnet-framework/net472
-- Documentación de Mssql Express Edition 2020: https://www.microsoft.com/en-us/sql-server/sql-server-downloads
+- DocumentaciÃ³n de Net Framework 4.7.2: https://dotnet.microsoft.com/es-es/download/dotnet-framework/net472
+- DocumentaciÃ³n de Mssql Express Edition 2020: https://www.microsoft.com/es-es/sql-server/sql-server-downloads
 
 

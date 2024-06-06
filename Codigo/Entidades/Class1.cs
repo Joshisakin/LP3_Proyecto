@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
+    //primer cambio
     public class Class1
     {
     }
