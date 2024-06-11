@@ -1,4 +1,6 @@
-﻿
+﻿--create database SistemaPortuario;
+
+use SistemaPortuario
 CREATE TABLE Almacenes
 ( 
 	Almacen_ID           integer IDENTITY ( 1,1 ) ,
@@ -90,11 +92,11 @@ go
 
 CREATE TABLE Cargas
 ( 
-	Carga_ID             integer IDENTITY ( 1,1 ) ,
+	Carga_ID             integer  NOT NULL ,
 	Peso                 decimal(2)  NOT NULL ,
 	Descripcion          varchar(80)  NOT NULL ,
-	Empresa_ID           integer  NULL ,
-	Procedencia          integer  NULL 
+	Procedencia          integer  NULL ,
+	Mercancia_ID         integer  NULL 
 )
 go
 
@@ -118,6 +120,21 @@ go
 
 ALTER TABLE Cargos_Imputados
 	ADD CONSTRAINT XPKCargos_Imputados PRIMARY KEY  CLUSTERED (Delitos_ID ASC)
+go
+
+
+
+CREATE TABLE Categoria
+( 
+	Categoria_ID         integer IDENTITY ( 1,1 ) ,
+	Nombre_Categoria     varchar(20)  NOT NULL 
+)
+go
+
+
+
+ALTER TABLE Categoria
+	ADD CONSTRAINT XPKCategoria PRIMARY KEY  CLUSTERED (Categoria_ID ASC)
 go
 
 
@@ -161,8 +178,8 @@ CREATE TABLE Contenedores
 	Contenedor_ID        integer IDENTITY ( 1,1 ) ,
 	Peso                 decimal(2)  NOT NULL ,
 	Descripcion          varchar(80)  NOT NULL ,
-	Empresa_ID           integer  NULL ,
-	Procedencia          integer  NULL 
+	Procedencia          integer  NULL ,
+	Contenido_Contenedor integer  NULL 
 )
 go
 
@@ -311,8 +328,7 @@ go
 CREATE TABLE Listado
 ( 
 	Listado_ID           integer IDENTITY ( 1,1 ) ,
-	Contenedor_ID        integer  NULL ,
-	Carga_ID             integer  NULL 
+	Fecha                datetime  NOT NULL 
 )
 go
 
@@ -320,6 +336,16 @@ go
 
 ALTER TABLE Listado
 	ADD CONSTRAINT XPKListado PRIMARY KEY  CLUSTERED (Listado_ID ASC)
+go
+
+
+
+CREATE TABLE Listado_Detalle
+( 
+	Listado_ID           integer  NOT NULL ,
+	Contenedor_ID        integer  NULL ,
+	Carga_ID             integer  NULL 
+)
 go
 
 
@@ -336,6 +362,23 @@ go
 
 ALTER TABLE Maquinaria
 	ADD CONSTRAINT XPKMaquinaria PRIMARY KEY  CLUSTERED (Maquinaria_ID ASC)
+go
+
+
+
+CREATE TABLE Mercancia
+( 
+	Mercancia_ID         integer IDENTITY ( 1,1 ) ,
+	Nombre               varchar(30)  NOT NULL ,
+	Precio               float  NOT NULL ,
+	Categoria_ID         integer  NULL 
+)
+go
+
+
+
+ALTER TABLE Mercancia
+	ADD CONSTRAINT XPKMercancia PRIMARY KEY  CLUSTERED (Mercancia_ID ASC)
 go
 
 
@@ -392,7 +435,6 @@ CREATE TABLE Operacion_Despachos
 	Despacho_ID          integer IDENTITY ( 1,1 ) ,
 	Terminal_Salida      integer  NOT NULL ,
 	Terminal_Ingreso     integer  NOT NULL ,
-	Identificacion       char(18)  NOT NULL ,
 	Vehiculo_ID          integer  NOT NULL ,
 	Inspeccion_Salida    integer  NOT NULL 
 )
@@ -462,7 +504,6 @@ CREATE TABLE Orden_Envio
 ( 
 	Buque_ID             integer  NOT NULL ,
 	OE_ID                integer IDENTITY ( 1,1 ) ,
-	Registro_ID          integer  NULL ,
 	Listado_ID           integer  NULL 
 )
 go
@@ -479,8 +520,8 @@ CREATE TABLE Orden_Servicio
 ( 
 	Empresa_ID           integer  NOT NULL ,
 	OS_ID                integer IDENTITY ( 1,1 ) ,
-	Registro_ID          integer  NULL ,
-	Listado_ID           integer  NULL 
+	Listado_ID           integer  NULL ,
+	OE_ID                integer  NULL 
 )
 go
 
@@ -552,21 +593,6 @@ go
 
 ALTER TABLE Personas_Requizadas
 	ADD CONSTRAINT XPKPersonas_Requizadas PRIMARY KEY  CLUSTERED (Requisitoradios_ID ASC)
-go
-
-
-
-CREATE TABLE Registro_Comun
-( 
-	Registro_ID          integer IDENTITY ( 1,1 ) ,
-	Registro_Codigo      numeric(3)  NOT NULL 
-)
-go
-
-
-
-ALTER TABLE Registro_Comun
-	ADD CONSTRAINT XPKRegistro_Comun PRIMARY KEY  CLUSTERED (Registro_ID ASC)
 go
 
 
@@ -702,7 +728,8 @@ CREATE TABLE Vehiculos
 	Matricula            varchar(20)  NOT NULL ,
 	Chofer_ID            integer  NOT NULL ,
 	Modelo_ID            integer  NOT NULL ,
-	Destino_Vehiculo     integer  NOT NULL 
+	Destino_Vehiculo     integer  NOT NULL ,
+	OS_ID                integer  NULL 
 )
 go
 
@@ -815,15 +842,6 @@ go
 
 
 ALTER TABLE Buques
-	ADD CONSTRAINT R_81 FOREIGN KEY (Solicitud_Atraco) REFERENCES Solicitudes(Solicitud_ID)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION
-go
-
-
-
-
-ALTER TABLE Buques
 	ADD CONSTRAINT R_94 FOREIGN KEY (Identificacion_Pasajero) REFERENCES Pasajeros(Identificacion_Pasajero)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
@@ -832,8 +850,8 @@ go
 
 
 
-ALTER TABLE Cargas
-	ADD CONSTRAINT R_74 FOREIGN KEY (Empresa_ID) REFERENCES Empresas(Empresa_ID)
+ALTER TABLE Buques
+	ADD CONSTRAINT R_81 FOREIGN KEY (Solicitud_Atraco) REFERENCES Solicitudes(Solicitud_ID)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 go
@@ -850,8 +868,8 @@ go
 
 
 
-ALTER TABLE Contenedores
-	ADD CONSTRAINT R_73 FOREIGN KEY (Empresa_ID) REFERENCES Empresas(Empresa_ID)
+ALTER TABLE Cargas
+	ADD CONSTRAINT R_119 FOREIGN KEY (Mercancia_ID) REFERENCES Mercancia(Mercancia_ID)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 go
@@ -861,6 +879,15 @@ go
 
 ALTER TABLE Contenedores
 	ADD CONSTRAINT R_76 FOREIGN KEY (Procedencia) REFERENCES Cuidades(Ciudades_ID)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+
+ALTER TABLE Contenedores
+	ADD CONSTRAINT R_120 FOREIGN KEY (Contenido_Contenedor) REFERENCES Cargas(Carga_ID)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 go
@@ -967,8 +994,8 @@ go
 
 
 
-ALTER TABLE Listado
-	ADD CONSTRAINT R_110 FOREIGN KEY (Contenedor_ID) REFERENCES Contenedores(Contenedor_ID)
+ALTER TABLE Listado_Detalle
+	ADD CONSTRAINT R_121 FOREIGN KEY (Listado_ID) REFERENCES Listado(Listado_ID)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 go
@@ -976,8 +1003,17 @@ go
 
 
 
-ALTER TABLE Listado
-	ADD CONSTRAINT R_111 FOREIGN KEY (Carga_ID) REFERENCES Cargas(Carga_ID)
+ALTER TABLE Listado_Detalle
+	ADD CONSTRAINT R_122 FOREIGN KEY (Contenedor_ID) REFERENCES Contenedores(Contenedor_ID)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+
+ALTER TABLE Listado_Detalle
+	ADD CONSTRAINT R_123 FOREIGN KEY (Carga_ID) REFERENCES Cargas(Carga_ID)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 go
@@ -996,6 +1032,15 @@ go
 
 ALTER TABLE Maquinaria
 	ADD CONSTRAINT R_104 FOREIGN KEY (Operador_ID) REFERENCES Operador(Operador_ID)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+
+ALTER TABLE Mercancia
+	ADD CONSTRAINT R_126 FOREIGN KEY (Categoria_ID) REFERENCES Categoria(Categoria_ID)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 go
@@ -1130,15 +1175,6 @@ go
 
 
 ALTER TABLE Orden_Envio
-	ADD CONSTRAINT R_108 FOREIGN KEY (Registro_ID) REFERENCES Registro_Comun(Registro_ID)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION
-go
-
-
-
-
-ALTER TABLE Orden_Envio
 	ADD CONSTRAINT R_112 FOREIGN KEY (Listado_ID) REFERENCES Listado(Listado_ID)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
@@ -1157,7 +1193,7 @@ go
 
 
 ALTER TABLE Orden_Servicio
-	ADD CONSTRAINT R_109 FOREIGN KEY (Registro_ID) REFERENCES Registro_Comun(Registro_ID)
+	ADD CONSTRAINT R_113 FOREIGN KEY (Listado_ID) REFERENCES Listado(Listado_ID)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 go
@@ -1166,7 +1202,7 @@ go
 
 
 ALTER TABLE Orden_Servicio
-	ADD CONSTRAINT R_113 FOREIGN KEY (Listado_ID) REFERENCES Listado(Listado_ID)
+	ADD CONSTRAINT R_127 FOREIGN KEY (OE_ID) REFERENCES Orden_Envio(OE_ID)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 go
@@ -1284,6 +1320,15 @@ go
 
 ALTER TABLE Vehiculos
 	ADD CONSTRAINT R_65 FOREIGN KEY (Destino_Vehiculo) REFERENCES Cuidades(Ciudades_ID)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+go
+
+
+
+
+ALTER TABLE Vehiculos
+	ADD CONSTRAINT R_128 FOREIGN KEY (OS_ID) REFERENCES Orden_Servicio(OS_ID)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 go
@@ -2364,7 +2409,7 @@ BEGIN
            @errmsg  varchar(255)
     /* ERwin Builtin Trigger */
     /* Cargas  Buques on parent delete no action */
-    /* ERWIN_RELATION:CHECKSUM="00051e32", PARENT_OWNER="", PARENT_TABLE="Cargas"
+    /* ERWIN_RELATION:CHECKSUM="000638ec", PARENT_OWNER="", PARENT_TABLE="Cargas"
     CHILD_OWNER="", CHILD_TABLE="Buques"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
     FK_CONSTRAINT="R_10", FK_COLUMNS="Carga_ID" */
@@ -2399,43 +2444,38 @@ BEGIN
     END
 
     /* ERwin Builtin Trigger */
-    /* Cargas  Listado on parent delete no action */
+    /* Cargas  Contenedores on parent delete no action */
     /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Cargas"
-    CHILD_OWNER="", CHILD_TABLE="Listado"
+    CHILD_OWNER="", CHILD_TABLE="Contenedores"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_111", FK_COLUMNS="Carga_ID" */
+    FK_CONSTRAINT="R_120", FK_COLUMNS="Contenido_Contenedor" */
     IF EXISTS (
-      SELECT * FROM deleted,Listado
+      SELECT * FROM deleted,Contenedores
       WHERE
-        /*  %JoinFKPK(Listado,deleted," = "," AND") */
-        Listado.Carga_ID = deleted.Carga_ID
+        /*  %JoinFKPK(Contenedores,deleted," = "," AND") */
+        Contenedores.Contenido_Contenedor = deleted.Carga_ID
     )
     BEGIN
       SELECT @errno  = 30001,
-             @errmsg = 'Cannot delete Cargas because Listado exists.'
+             @errmsg = 'Cannot delete Cargas because Contenedores exists.'
       GOTO ERROR
     END
 
     /* ERwin Builtin Trigger */
-    /* Empresas  Cargas on child delete no action */
-    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Empresas"
-    CHILD_OWNER="", CHILD_TABLE="Cargas"
+    /* Cargas  Listado_Detalle on parent delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Cargas"
+    CHILD_OWNER="", CHILD_TABLE="Listado_Detalle"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_74", FK_COLUMNS="Empresa_ID" */
-    IF EXISTS (SELECT * FROM deleted,Empresas
+    FK_CONSTRAINT="R_123", FK_COLUMNS="Carga_ID" */
+    IF EXISTS (
+      SELECT * FROM deleted,Listado_Detalle
       WHERE
-        /* %JoinFKPK(deleted,Empresas," = "," AND") */
-        deleted.Empresa_ID = Empresas.Empresa_ID AND
-        NOT EXISTS (
-          SELECT * FROM Cargas
-          WHERE
-            /* %JoinFKPK(Cargas,Empresas," = "," AND") */
-            Cargas.Empresa_ID = Empresas.Empresa_ID
-        )
+        /*  %JoinFKPK(Listado_Detalle,deleted," = "," AND") */
+        Listado_Detalle.Carga_ID = deleted.Carga_ID
     )
     BEGIN
-      SELECT @errno  = 30010,
-             @errmsg = 'Cannot delete last Cargas because Empresas exists.'
+      SELECT @errno  = 30001,
+             @errmsg = 'Cannot delete Cargas because Listado_Detalle exists.'
       GOTO ERROR
     END
 
@@ -2459,6 +2499,29 @@ BEGIN
     BEGIN
       SELECT @errno  = 30010,
              @errmsg = 'Cannot delete last Cargas because Cuidades exists.'
+      GOTO ERROR
+    END
+
+    /* ERwin Builtin Trigger */
+    /* Mercancia  Cargas on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Mercancia"
+    CHILD_OWNER="", CHILD_TABLE="Cargas"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_119", FK_COLUMNS="Mercancia_ID" */
+    IF EXISTS (SELECT * FROM deleted,Mercancia
+      WHERE
+        /* %JoinFKPK(deleted,Mercancia," = "," AND") */
+        deleted.Mercancia_ID = Mercancia.Mercancia_ID AND
+        NOT EXISTS (
+          SELECT * FROM Cargas
+          WHERE
+            /* %JoinFKPK(Cargas,Mercancia," = "," AND") */
+            Cargas.Mercancia_ID = Mercancia.Mercancia_ID
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Cargas because Mercancia exists.'
       GOTO ERROR
     END
 
@@ -2487,7 +2550,7 @@ BEGIN
   SELECT @NUMROWS = @@rowcount
   /* ERwin Builtin Trigger */
   /* Cargas  Buques on parent update no action */
-  /* ERWIN_RELATION:CHECKSUM="0005da38", PARENT_OWNER="", PARENT_TABLE="Cargas"
+  /* ERWIN_RELATION:CHECKSUM="00072c0d", PARENT_OWNER="", PARENT_TABLE="Cargas"
     CHILD_OWNER="", CHILD_TABLE="Buques"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
     FK_CONSTRAINT="R_10", FK_COLUMNS="Carga_ID" */
@@ -2532,51 +2595,47 @@ BEGIN
   END
 
   /* ERwin Builtin Trigger */
-  /* Cargas  Listado on parent update no action */
+  /* Cargas  Contenedores on parent update no action */
   /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Cargas"
-    CHILD_OWNER="", CHILD_TABLE="Listado"
+    CHILD_OWNER="", CHILD_TABLE="Contenedores"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_111", FK_COLUMNS="Carga_ID" */
+    FK_CONSTRAINT="R_120", FK_COLUMNS="Contenido_Contenedor" */
   IF
     /* %ParentPK(" OR",UPDATE) */
     UPDATE(Carga_ID)
   BEGIN
     IF EXISTS (
-      SELECT * FROM deleted,Listado
+      SELECT * FROM deleted,Contenedores
       WHERE
-        /*  %JoinFKPK(Listado,deleted," = "," AND") */
-        Listado.Carga_ID = deleted.Carga_ID
+        /*  %JoinFKPK(Contenedores,deleted," = "," AND") */
+        Contenedores.Contenido_Contenedor = deleted.Carga_ID
     )
     BEGIN
       SELECT @errno  = 30005,
-             @errmsg = 'Cannot update Cargas because Listado exists.'
+             @errmsg = 'Cannot update Cargas because Contenedores exists.'
       GOTO ERROR
     END
   END
 
   /* ERwin Builtin Trigger */
-  /* Empresas  Cargas on child update no action */
-  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Empresas"
-    CHILD_OWNER="", CHILD_TABLE="Cargas"
+  /* Cargas  Listado_Detalle on parent update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Cargas"
+    CHILD_OWNER="", CHILD_TABLE="Listado_Detalle"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_74", FK_COLUMNS="Empresa_ID" */
+    FK_CONSTRAINT="R_123", FK_COLUMNS="Carga_ID" */
   IF
-    /* %ChildFK(" OR",UPDATE) */
-    UPDATE(Empresa_ID)
+    /* %ParentPK(" OR",UPDATE) */
+    UPDATE(Carga_ID)
   BEGIN
-    SELECT @nullcnt = 0
-    SELECT @validcnt = count(*)
-      FROM inserted,Empresas
-        WHERE
-          /* %JoinFKPK(inserted,Empresas) */
-          inserted.Empresa_ID = Empresas.Empresa_ID
-    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
-    select @nullcnt = count(*) from inserted where
-      inserted.Empresa_ID IS NULL
-    IF @validcnt + @nullcnt != @NUMROWS
+    IF EXISTS (
+      SELECT * FROM deleted,Listado_Detalle
+      WHERE
+        /*  %JoinFKPK(Listado_Detalle,deleted," = "," AND") */
+        Listado_Detalle.Carga_ID = deleted.Carga_ID
+    )
     BEGIN
-      SELECT @errno  = 30007,
-             @errmsg = 'Cannot update Cargas because Empresas does not exist.'
+      SELECT @errno  = 30005,
+             @errmsg = 'Cannot update Cargas because Listado_Detalle exists.'
       GOTO ERROR
     END
   END
@@ -2604,6 +2663,33 @@ BEGIN
     BEGIN
       SELECT @errno  = 30007,
              @errmsg = 'Cannot update Cargas because Cuidades does not exist.'
+      GOTO ERROR
+    END
+  END
+
+  /* ERwin Builtin Trigger */
+  /* Mercancia  Cargas on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Mercancia"
+    CHILD_OWNER="", CHILD_TABLE="Cargas"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_119", FK_COLUMNS="Mercancia_ID" */
+  IF
+    /* %ChildFK(" OR",UPDATE) */
+    UPDATE(Mercancia_ID)
+  BEGIN
+    SELECT @nullcnt = 0
+    SELECT @validcnt = count(*)
+      FROM inserted,Mercancia
+        WHERE
+          /* %JoinFKPK(inserted,Mercancia) */
+          inserted.Mercancia_ID = Mercancia.Mercancia_ID
+    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
+    select @nullcnt = count(*) from inserted where
+      inserted.Mercancia_ID IS NULL
+    IF @validcnt + @nullcnt != @NUMROWS
+    BEGIN
+      SELECT @errno  = 30007,
+             @errmsg = 'Cannot update Cargas because Mercancia does not exist.'
       GOTO ERROR
     END
   END
@@ -2687,6 +2773,89 @@ BEGIN
     BEGIN
       SELECT @errno  = 30005,
              @errmsg = 'Cannot update Cargos_Imputados because Personas_Requizadas exists.'
+      GOTO ERROR
+    END
+  END
+
+
+  /* ERwin Builtin Trigger */
+  RETURN
+ERROR:
+    raiserror @errno @errmsg
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER tD_Categoria ON Categoria FOR DELETE AS
+/* ERwin Builtin Trigger */
+/* DELETE trigger on Categoria */
+BEGIN
+  DECLARE  @errno   int,
+           @errmsg  varchar(255)
+    /* ERwin Builtin Trigger */
+    /* Categoria  Mercancia on parent delete no action */
+    /* ERWIN_RELATION:CHECKSUM="0000f737", PARENT_OWNER="", PARENT_TABLE="Categoria"
+    CHILD_OWNER="", CHILD_TABLE="Mercancia"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_126", FK_COLUMNS="Categoria_ID" */
+    IF EXISTS (
+      SELECT * FROM deleted,Mercancia
+      WHERE
+        /*  %JoinFKPK(Mercancia,deleted," = "," AND") */
+        Mercancia.Categoria_ID = deleted.Categoria_ID
+    )
+    BEGIN
+      SELECT @errno  = 30001,
+             @errmsg = 'Cannot delete Categoria because Mercancia exists.'
+      GOTO ERROR
+    END
+
+
+    /* ERwin Builtin Trigger */
+    RETURN
+ERROR:
+    raiserror @errno @errmsg
+    rollback transaction
+END
+
+go
+
+
+CREATE TRIGGER tU_Categoria ON Categoria FOR UPDATE AS
+/* ERwin Builtin Trigger */
+/* UPDATE trigger on Categoria */
+BEGIN
+  DECLARE  @NUMROWS int,
+           @nullcnt int,
+           @validcnt int,
+           @insCategoria_ID integer,
+           @errno   int,
+           @errmsg  varchar(255)
+
+  SELECT @NUMROWS = @@rowcount
+  /* ERwin Builtin Trigger */
+  /* Categoria  Mercancia on parent update no action */
+  /* ERWIN_RELATION:CHECKSUM="000118c7", PARENT_OWNER="", PARENT_TABLE="Categoria"
+    CHILD_OWNER="", CHILD_TABLE="Mercancia"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_126", FK_COLUMNS="Categoria_ID" */
+  IF
+    /* %ParentPK(" OR",UPDATE) */
+    UPDATE(Categoria_ID)
+  BEGIN
+    IF EXISTS (
+      SELECT * FROM deleted,Mercancia
+      WHERE
+        /*  %JoinFKPK(Mercancia,deleted," = "," AND") */
+        Mercancia.Categoria_ID = deleted.Categoria_ID
+    )
+    BEGIN
+      SELECT @errno  = 30005,
+             @errmsg = 'Cannot update Categoria because Mercancia exists.'
       GOTO ERROR
     END
   END
@@ -2878,7 +3047,7 @@ BEGIN
            @errmsg  varchar(255)
     /* ERwin Builtin Trigger */
     /* Contenedores  Buques on parent delete no action */
-    /* ERWIN_RELATION:CHECKSUM="00056054", PARENT_OWNER="", PARENT_TABLE="Contenedores"
+    /* ERWIN_RELATION:CHECKSUM="00057806", PARENT_OWNER="", PARENT_TABLE="Contenedores"
     CHILD_OWNER="", CHILD_TABLE="Buques"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
     FK_CONSTRAINT="R_9", FK_COLUMNS="Contenedor_ID" */
@@ -2913,43 +3082,20 @@ BEGIN
     END
 
     /* ERwin Builtin Trigger */
-    /* Contenedores  Listado on parent delete no action */
+    /* Contenedores  Listado_Detalle on parent delete no action */
     /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Contenedores"
-    CHILD_OWNER="", CHILD_TABLE="Listado"
+    CHILD_OWNER="", CHILD_TABLE="Listado_Detalle"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_110", FK_COLUMNS="Contenedor_ID" */
+    FK_CONSTRAINT="R_122", FK_COLUMNS="Contenedor_ID" */
     IF EXISTS (
-      SELECT * FROM deleted,Listado
+      SELECT * FROM deleted,Listado_Detalle
       WHERE
-        /*  %JoinFKPK(Listado,deleted," = "," AND") */
-        Listado.Contenedor_ID = deleted.Contenedor_ID
+        /*  %JoinFKPK(Listado_Detalle,deleted," = "," AND") */
+        Listado_Detalle.Contenedor_ID = deleted.Contenedor_ID
     )
     BEGIN
       SELECT @errno  = 30001,
-             @errmsg = 'Cannot delete Contenedores because Listado exists.'
-      GOTO ERROR
-    END
-
-    /* ERwin Builtin Trigger */
-    /* Empresas  Contenedores on child delete no action */
-    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Empresas"
-    CHILD_OWNER="", CHILD_TABLE="Contenedores"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_73", FK_COLUMNS="Empresa_ID" */
-    IF EXISTS (SELECT * FROM deleted,Empresas
-      WHERE
-        /* %JoinFKPK(deleted,Empresas," = "," AND") */
-        deleted.Empresa_ID = Empresas.Empresa_ID AND
-        NOT EXISTS (
-          SELECT * FROM Contenedores
-          WHERE
-            /* %JoinFKPK(Contenedores,Empresas," = "," AND") */
-            Contenedores.Empresa_ID = Empresas.Empresa_ID
-        )
-    )
-    BEGIN
-      SELECT @errno  = 30010,
-             @errmsg = 'Cannot delete last Contenedores because Empresas exists.'
+             @errmsg = 'Cannot delete Contenedores because Listado_Detalle exists.'
       GOTO ERROR
     END
 
@@ -2973,6 +3119,29 @@ BEGIN
     BEGIN
       SELECT @errno  = 30010,
              @errmsg = 'Cannot delete last Contenedores because Cuidades exists.'
+      GOTO ERROR
+    END
+
+    /* ERwin Builtin Trigger */
+    /* Cargas  Contenedores on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Cargas"
+    CHILD_OWNER="", CHILD_TABLE="Contenedores"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_120", FK_COLUMNS="Contenido_Contenedor" */
+    IF EXISTS (SELECT * FROM deleted,Cargas
+      WHERE
+        /* %JoinFKPK(deleted,Cargas," = "," AND") */
+        deleted.Contenido_Contenedor = Cargas.Carga_ID AND
+        NOT EXISTS (
+          SELECT * FROM Contenedores
+          WHERE
+            /* %JoinFKPK(Contenedores,Cargas," = "," AND") */
+            Contenedores.Contenido_Contenedor = Cargas.Carga_ID
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Contenedores because Cargas exists.'
       GOTO ERROR
     END
 
@@ -3001,7 +3170,7 @@ BEGIN
   SELECT @NUMROWS = @@rowcount
   /* ERwin Builtin Trigger */
   /* Contenedores  Buques on parent update no action */
-  /* ERWIN_RELATION:CHECKSUM="000636a3", PARENT_OWNER="", PARENT_TABLE="Contenedores"
+  /* ERWIN_RELATION:CHECKSUM="00065f40", PARENT_OWNER="", PARENT_TABLE="Contenedores"
     CHILD_OWNER="", CHILD_TABLE="Buques"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
     FK_CONSTRAINT="R_9", FK_COLUMNS="Contenedor_ID" */
@@ -3046,51 +3215,24 @@ BEGIN
   END
 
   /* ERwin Builtin Trigger */
-  /* Contenedores  Listado on parent update no action */
+  /* Contenedores  Listado_Detalle on parent update no action */
   /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Contenedores"
-    CHILD_OWNER="", CHILD_TABLE="Listado"
+    CHILD_OWNER="", CHILD_TABLE="Listado_Detalle"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_110", FK_COLUMNS="Contenedor_ID" */
+    FK_CONSTRAINT="R_122", FK_COLUMNS="Contenedor_ID" */
   IF
     /* %ParentPK(" OR",UPDATE) */
     UPDATE(Contenedor_ID)
   BEGIN
     IF EXISTS (
-      SELECT * FROM deleted,Listado
+      SELECT * FROM deleted,Listado_Detalle
       WHERE
-        /*  %JoinFKPK(Listado,deleted," = "," AND") */
-        Listado.Contenedor_ID = deleted.Contenedor_ID
+        /*  %JoinFKPK(Listado_Detalle,deleted," = "," AND") */
+        Listado_Detalle.Contenedor_ID = deleted.Contenedor_ID
     )
     BEGIN
       SELECT @errno  = 30005,
-             @errmsg = 'Cannot update Contenedores because Listado exists.'
-      GOTO ERROR
-    END
-  END
-
-  /* ERwin Builtin Trigger */
-  /* Empresas  Contenedores on child update no action */
-  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Empresas"
-    CHILD_OWNER="", CHILD_TABLE="Contenedores"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_73", FK_COLUMNS="Empresa_ID" */
-  IF
-    /* %ChildFK(" OR",UPDATE) */
-    UPDATE(Empresa_ID)
-  BEGIN
-    SELECT @nullcnt = 0
-    SELECT @validcnt = count(*)
-      FROM inserted,Empresas
-        WHERE
-          /* %JoinFKPK(inserted,Empresas) */
-          inserted.Empresa_ID = Empresas.Empresa_ID
-    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
-    select @nullcnt = count(*) from inserted where
-      inserted.Empresa_ID IS NULL
-    IF @validcnt + @nullcnt != @NUMROWS
-    BEGIN
-      SELECT @errno  = 30007,
-             @errmsg = 'Cannot update Contenedores because Empresas does not exist.'
+             @errmsg = 'Cannot update Contenedores because Listado_Detalle exists.'
       GOTO ERROR
     END
   END
@@ -3118,6 +3260,33 @@ BEGIN
     BEGIN
       SELECT @errno  = 30007,
              @errmsg = 'Cannot update Contenedores because Cuidades does not exist.'
+      GOTO ERROR
+    END
+  END
+
+  /* ERwin Builtin Trigger */
+  /* Cargas  Contenedores on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Cargas"
+    CHILD_OWNER="", CHILD_TABLE="Contenedores"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_120", FK_COLUMNS="Contenido_Contenedor" */
+  IF
+    /* %ChildFK(" OR",UPDATE) */
+    UPDATE(Contenido_Contenedor)
+  BEGIN
+    SELECT @nullcnt = 0
+    SELECT @validcnt = count(*)
+      FROM inserted,Cargas
+        WHERE
+          /* %JoinFKPK(inserted,Cargas) */
+          inserted.Contenido_Contenedor = Cargas.Carga_ID
+    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
+    select @nullcnt = count(*) from inserted where
+      inserted.Contenido_Contenedor IS NULL
+    IF @validcnt + @nullcnt != @NUMROWS
+    BEGIN
+      SELECT @errno  = 30007,
+             @errmsg = 'Cannot update Contenedores because Cargas does not exist.'
       GOTO ERROR
     END
   END
@@ -4042,44 +4211,8 @@ BEGIN
   DECLARE  @errno   int,
            @errmsg  varchar(255)
     /* ERwin Builtin Trigger */
-    /* Empresas  Contenedores on parent delete no action */
-    /* ERWIN_RELATION:CHECKSUM="00042f8e", PARENT_OWNER="", PARENT_TABLE="Empresas"
-    CHILD_OWNER="", CHILD_TABLE="Contenedores"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_73", FK_COLUMNS="Empresa_ID" */
-    IF EXISTS (
-      SELECT * FROM deleted,Contenedores
-      WHERE
-        /*  %JoinFKPK(Contenedores,deleted," = "," AND") */
-        Contenedores.Empresa_ID = deleted.Empresa_ID
-    )
-    BEGIN
-      SELECT @errno  = 30001,
-             @errmsg = 'Cannot delete Empresas because Contenedores exists.'
-      GOTO ERROR
-    END
-
-    /* ERwin Builtin Trigger */
-    /* Empresas  Cargas on parent delete no action */
-    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Empresas"
-    CHILD_OWNER="", CHILD_TABLE="Cargas"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_74", FK_COLUMNS="Empresa_ID" */
-    IF EXISTS (
-      SELECT * FROM deleted,Cargas
-      WHERE
-        /*  %JoinFKPK(Cargas,deleted," = "," AND") */
-        Cargas.Empresa_ID = deleted.Empresa_ID
-    )
-    BEGIN
-      SELECT @errno  = 30001,
-             @errmsg = 'Cannot delete Empresas because Cargas exists.'
-      GOTO ERROR
-    END
-
-    /* ERwin Builtin Trigger */
     /* Empresas  Orden_Servicio on parent delete no action */
-    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Empresas"
+    /* ERWIN_RELATION:CHECKSUM="0002556c", PARENT_OWNER="", PARENT_TABLE="Empresas"
     CHILD_OWNER="", CHILD_TABLE="Orden_Servicio"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
     FK_CONSTRAINT="R_106", FK_COLUMNS="Empresa_ID" */
@@ -4142,54 +4275,8 @@ BEGIN
 
   SELECT @NUMROWS = @@rowcount
   /* ERwin Builtin Trigger */
-  /* Empresas  Contenedores on parent update no action */
-  /* ERWIN_RELATION:CHECKSUM="0004a12f", PARENT_OWNER="", PARENT_TABLE="Empresas"
-    CHILD_OWNER="", CHILD_TABLE="Contenedores"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_73", FK_COLUMNS="Empresa_ID" */
-  IF
-    /* %ParentPK(" OR",UPDATE) */
-    UPDATE(Empresa_ID)
-  BEGIN
-    IF EXISTS (
-      SELECT * FROM deleted,Contenedores
-      WHERE
-        /*  %JoinFKPK(Contenedores,deleted," = "," AND") */
-        Contenedores.Empresa_ID = deleted.Empresa_ID
-    )
-    BEGIN
-      SELECT @errno  = 30005,
-             @errmsg = 'Cannot update Empresas because Contenedores exists.'
-      GOTO ERROR
-    END
-  END
-
-  /* ERwin Builtin Trigger */
-  /* Empresas  Cargas on parent update no action */
-  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Empresas"
-    CHILD_OWNER="", CHILD_TABLE="Cargas"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_74", FK_COLUMNS="Empresa_ID" */
-  IF
-    /* %ParentPK(" OR",UPDATE) */
-    UPDATE(Empresa_ID)
-  BEGIN
-    IF EXISTS (
-      SELECT * FROM deleted,Cargas
-      WHERE
-        /*  %JoinFKPK(Cargas,deleted," = "," AND") */
-        Cargas.Empresa_ID = deleted.Empresa_ID
-    )
-    BEGIN
-      SELECT @errno  = 30005,
-             @errmsg = 'Cannot update Empresas because Cargas exists.'
-      GOTO ERROR
-    END
-  END
-
-  /* ERwin Builtin Trigger */
   /* Empresas  Orden_Servicio on parent update no action */
-  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Empresas"
+  /* ERWIN_RELATION:CHECKSUM="0002a21e", PARENT_OWNER="", PARENT_TABLE="Empresas"
     CHILD_OWNER="", CHILD_TABLE="Orden_Servicio"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
     FK_CONSTRAINT="R_106", FK_COLUMNS="Empresa_ID" */
@@ -4931,7 +5018,7 @@ BEGIN
            @errmsg  varchar(255)
     /* ERwin Builtin Trigger */
     /* Listado  Orden_Envio on parent delete no action */
-    /* ERWIN_RELATION:CHECKSUM="000456fa", PARENT_OWNER="", PARENT_TABLE="Listado"
+    /* ERWIN_RELATION:CHECKSUM="0002ffa4", PARENT_OWNER="", PARENT_TABLE="Listado"
     CHILD_OWNER="", CHILD_TABLE="Orden_Envio"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
     FK_CONSTRAINT="R_112", FK_COLUMNS="Listado_ID" */
@@ -4966,48 +5053,20 @@ BEGIN
     END
 
     /* ERwin Builtin Trigger */
-    /* Contenedores  Listado on child delete no action */
-    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Contenedores"
-    CHILD_OWNER="", CHILD_TABLE="Listado"
+    /* Listado  Listado_Detalle on parent delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Listado"
+    CHILD_OWNER="", CHILD_TABLE="Listado_Detalle"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_110", FK_COLUMNS="Contenedor_ID" */
-    IF EXISTS (SELECT * FROM deleted,Contenedores
+    FK_CONSTRAINT="R_121", FK_COLUMNS="Listado_ID" */
+    IF EXISTS (
+      SELECT * FROM deleted,Listado_Detalle
       WHERE
-        /* %JoinFKPK(deleted,Contenedores," = "," AND") */
-        deleted.Contenedor_ID = Contenedores.Contenedor_ID AND
-        NOT EXISTS (
-          SELECT * FROM Listado
-          WHERE
-            /* %JoinFKPK(Listado,Contenedores," = "," AND") */
-            Listado.Contenedor_ID = Contenedores.Contenedor_ID
-        )
+        /*  %JoinFKPK(Listado_Detalle,deleted," = "," AND") */
+        Listado_Detalle.Listado_ID = deleted.Listado_ID
     )
     BEGIN
-      SELECT @errno  = 30010,
-             @errmsg = 'Cannot delete last Listado because Contenedores exists.'
-      GOTO ERROR
-    END
-
-    /* ERwin Builtin Trigger */
-    /* Cargas  Listado on child delete no action */
-    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Cargas"
-    CHILD_OWNER="", CHILD_TABLE="Listado"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_111", FK_COLUMNS="Carga_ID" */
-    IF EXISTS (SELECT * FROM deleted,Cargas
-      WHERE
-        /* %JoinFKPK(deleted,Cargas," = "," AND") */
-        deleted.Carga_ID = Cargas.Carga_ID AND
-        NOT EXISTS (
-          SELECT * FROM Listado
-          WHERE
-            /* %JoinFKPK(Listado,Cargas," = "," AND") */
-            Listado.Carga_ID = Cargas.Carga_ID
-        )
-    )
-    BEGIN
-      SELECT @errno  = 30010,
-             @errmsg = 'Cannot delete last Listado because Cargas exists.'
+      SELECT @errno  = 30001,
+             @errmsg = 'Cannot delete Listado because Listado_Detalle exists.'
       GOTO ERROR
     END
 
@@ -5036,7 +5095,7 @@ BEGIN
   SELECT @NUMROWS = @@rowcount
   /* ERwin Builtin Trigger */
   /* Listado  Orden_Envio on parent update no action */
-  /* ERWIN_RELATION:CHECKSUM="0004e4b0", PARENT_OWNER="", PARENT_TABLE="Listado"
+  /* ERWIN_RELATION:CHECKSUM="00033744", PARENT_OWNER="", PARENT_TABLE="Listado"
     CHILD_OWNER="", CHILD_TABLE="Orden_Envio"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
     FK_CONSTRAINT="R_112", FK_COLUMNS="Listado_ID" */
@@ -5081,11 +5140,172 @@ BEGIN
   END
 
   /* ERwin Builtin Trigger */
-  /* Contenedores  Listado on child update no action */
-  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Contenedores"
-    CHILD_OWNER="", CHILD_TABLE="Listado"
+  /* Listado  Listado_Detalle on parent update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Listado"
+    CHILD_OWNER="", CHILD_TABLE="Listado_Detalle"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_110", FK_COLUMNS="Contenedor_ID" */
+    FK_CONSTRAINT="R_121", FK_COLUMNS="Listado_ID" */
+  IF
+    /* %ParentPK(" OR",UPDATE) */
+    UPDATE(Listado_ID)
+  BEGIN
+    IF EXISTS (
+      SELECT * FROM deleted,Listado_Detalle
+      WHERE
+        /*  %JoinFKPK(Listado_Detalle,deleted," = "," AND") */
+        Listado_Detalle.Listado_ID = deleted.Listado_ID
+    )
+    BEGIN
+      SELECT @errno  = 30005,
+             @errmsg = 'Cannot update Listado because Listado_Detalle exists.'
+      GOTO ERROR
+    END
+  END
+
+
+  /* ERwin Builtin Trigger */
+  RETURN
+ERROR:
+    raiserror @errno @errmsg
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER tD_Listado_Detalle ON Listado_Detalle FOR DELETE AS
+/* ERwin Builtin Trigger */
+/* DELETE trigger on Listado_Detalle */
+BEGIN
+  DECLARE  @errno   int,
+           @errmsg  varchar(255)
+    /* ERwin Builtin Trigger */
+    /* Listado  Listado_Detalle on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="0003bd61", PARENT_OWNER="", PARENT_TABLE="Listado"
+    CHILD_OWNER="", CHILD_TABLE="Listado_Detalle"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_121", FK_COLUMNS="Listado_ID" */
+    IF EXISTS (SELECT * FROM deleted,Listado
+      WHERE
+        /* %JoinFKPK(deleted,Listado," = "," AND") */
+        deleted.Listado_ID = Listado.Listado_ID AND
+        NOT EXISTS (
+          SELECT * FROM Listado_Detalle
+          WHERE
+            /* %JoinFKPK(Listado_Detalle,Listado," = "," AND") */
+            Listado_Detalle.Listado_ID = Listado.Listado_ID
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Listado_Detalle because Listado exists.'
+      GOTO ERROR
+    END
+
+    /* ERwin Builtin Trigger */
+    /* Contenedores  Listado_Detalle on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Contenedores"
+    CHILD_OWNER="", CHILD_TABLE="Listado_Detalle"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_122", FK_COLUMNS="Contenedor_ID" */
+    IF EXISTS (SELECT * FROM deleted,Contenedores
+      WHERE
+        /* %JoinFKPK(deleted,Contenedores," = "," AND") */
+        deleted.Contenedor_ID = Contenedores.Contenedor_ID AND
+        NOT EXISTS (
+          SELECT * FROM Listado_Detalle
+          WHERE
+            /* %JoinFKPK(Listado_Detalle,Contenedores," = "," AND") */
+            Listado_Detalle.Contenedor_ID = Contenedores.Contenedor_ID
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Listado_Detalle because Contenedores exists.'
+      GOTO ERROR
+    END
+
+    /* ERwin Builtin Trigger */
+    /* Cargas  Listado_Detalle on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Cargas"
+    CHILD_OWNER="", CHILD_TABLE="Listado_Detalle"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_123", FK_COLUMNS="Carga_ID" */
+    IF EXISTS (SELECT * FROM deleted,Cargas
+      WHERE
+        /* %JoinFKPK(deleted,Cargas," = "," AND") */
+        deleted.Carga_ID = Cargas.Carga_ID AND
+        NOT EXISTS (
+          SELECT * FROM Listado_Detalle
+          WHERE
+            /* %JoinFKPK(Listado_Detalle,Cargas," = "," AND") */
+            Listado_Detalle.Carga_ID = Cargas.Carga_ID
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Listado_Detalle because Cargas exists.'
+      GOTO ERROR
+    END
+
+
+    /* ERwin Builtin Trigger */
+    RETURN
+ERROR:
+    raiserror @errno @errmsg
+    rollback transaction
+END
+
+go
+
+
+CREATE TRIGGER tU_Listado_Detalle ON Listado_Detalle FOR UPDATE AS
+/* ERwin Builtin Trigger */
+/* UPDATE trigger on Listado_Detalle */
+BEGIN
+  DECLARE  @NUMROWS int,
+           @nullcnt int,
+           @validcnt int,
+           
+           @errno   int,
+           @errmsg  varchar(255)
+
+  SELECT @NUMROWS = @@rowcount
+  /* ERwin Builtin Trigger */
+  /* Listado  Listado_Detalle on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="00046b62", PARENT_OWNER="", PARENT_TABLE="Listado"
+    CHILD_OWNER="", CHILD_TABLE="Listado_Detalle"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_121", FK_COLUMNS="Listado_ID" */
+  IF
+    /* %ChildFK(" OR",UPDATE) */
+    UPDATE(Listado_ID)
+  BEGIN
+    SELECT @nullcnt = 0
+    SELECT @validcnt = count(*)
+      FROM inserted,Listado
+        WHERE
+          /* %JoinFKPK(inserted,Listado) */
+          inserted.Listado_ID = Listado.Listado_ID
+    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
+    select @nullcnt = count(*) from inserted where
+      inserted.Listado_ID IS NULL
+    IF @validcnt + @nullcnt != @NUMROWS
+    BEGIN
+      SELECT @errno  = 30007,
+             @errmsg = 'Cannot update Listado_Detalle because Listado does not exist.'
+      GOTO ERROR
+    END
+  END
+
+  /* ERwin Builtin Trigger */
+  /* Contenedores  Listado_Detalle on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Contenedores"
+    CHILD_OWNER="", CHILD_TABLE="Listado_Detalle"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_122", FK_COLUMNS="Contenedor_ID" */
   IF
     /* %ChildFK(" OR",UPDATE) */
     UPDATE(Contenedor_ID)
@@ -5102,17 +5322,17 @@ BEGIN
     IF @validcnt + @nullcnt != @NUMROWS
     BEGIN
       SELECT @errno  = 30007,
-             @errmsg = 'Cannot update Listado because Contenedores does not exist.'
+             @errmsg = 'Cannot update Listado_Detalle because Contenedores does not exist.'
       GOTO ERROR
     END
   END
 
   /* ERwin Builtin Trigger */
-  /* Cargas  Listado on child update no action */
+  /* Cargas  Listado_Detalle on child update no action */
   /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Cargas"
-    CHILD_OWNER="", CHILD_TABLE="Listado"
+    CHILD_OWNER="", CHILD_TABLE="Listado_Detalle"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_111", FK_COLUMNS="Carga_ID" */
+    FK_CONSTRAINT="R_123", FK_COLUMNS="Carga_ID" */
   IF
     /* %ChildFK(" OR",UPDATE) */
     UPDATE(Carga_ID)
@@ -5129,7 +5349,7 @@ BEGIN
     IF @validcnt + @nullcnt != @NUMROWS
     BEGIN
       SELECT @errno  = 30007,
-             @errmsg = 'Cannot update Listado because Cargas does not exist.'
+             @errmsg = 'Cannot update Listado_Detalle because Cargas does not exist.'
       GOTO ERROR
     END
   END
@@ -5313,6 +5533,139 @@ BEGIN
     BEGIN
       SELECT @errno  = 30007,
              @errmsg = 'Cannot update Maquinaria because Operador does not exist.'
+      GOTO ERROR
+    END
+  END
+
+
+  /* ERwin Builtin Trigger */
+  RETURN
+ERROR:
+    raiserror @errno @errmsg
+    rollback transaction
+END
+
+go
+
+
+
+
+CREATE TRIGGER tD_Mercancia ON Mercancia FOR DELETE AS
+/* ERwin Builtin Trigger */
+/* DELETE trigger on Mercancia */
+BEGIN
+  DECLARE  @errno   int,
+           @errmsg  varchar(255)
+    /* ERwin Builtin Trigger */
+    /* Mercancia  Cargas on parent delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00022c70", PARENT_OWNER="", PARENT_TABLE="Mercancia"
+    CHILD_OWNER="", CHILD_TABLE="Cargas"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_119", FK_COLUMNS="Mercancia_ID" */
+    IF EXISTS (
+      SELECT * FROM deleted,Cargas
+      WHERE
+        /*  %JoinFKPK(Cargas,deleted," = "," AND") */
+        Cargas.Mercancia_ID = deleted.Mercancia_ID
+    )
+    BEGIN
+      SELECT @errno  = 30001,
+             @errmsg = 'Cannot delete Mercancia because Cargas exists.'
+      GOTO ERROR
+    END
+
+    /* ERwin Builtin Trigger */
+    /* Categoria  Mercancia on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Categoria"
+    CHILD_OWNER="", CHILD_TABLE="Mercancia"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_126", FK_COLUMNS="Categoria_ID" */
+    IF EXISTS (SELECT * FROM deleted,Categoria
+      WHERE
+        /* %JoinFKPK(deleted,Categoria," = "," AND") */
+        deleted.Categoria_ID = Categoria.Categoria_ID AND
+        NOT EXISTS (
+          SELECT * FROM Mercancia
+          WHERE
+            /* %JoinFKPK(Mercancia,Categoria," = "," AND") */
+            Mercancia.Categoria_ID = Categoria.Categoria_ID
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Mercancia because Categoria exists.'
+      GOTO ERROR
+    END
+
+
+    /* ERwin Builtin Trigger */
+    RETURN
+ERROR:
+    raiserror @errno @errmsg
+    rollback transaction
+END
+
+go
+
+
+CREATE TRIGGER tU_Mercancia ON Mercancia FOR UPDATE AS
+/* ERwin Builtin Trigger */
+/* UPDATE trigger on Mercancia */
+BEGIN
+  DECLARE  @NUMROWS int,
+           @nullcnt int,
+           @validcnt int,
+           @insMercancia_ID integer,
+           @errno   int,
+           @errmsg  varchar(255)
+
+  SELECT @NUMROWS = @@rowcount
+  /* ERwin Builtin Trigger */
+  /* Mercancia  Cargas on parent update no action */
+  /* ERWIN_RELATION:CHECKSUM="00027049", PARENT_OWNER="", PARENT_TABLE="Mercancia"
+    CHILD_OWNER="", CHILD_TABLE="Cargas"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_119", FK_COLUMNS="Mercancia_ID" */
+  IF
+    /* %ParentPK(" OR",UPDATE) */
+    UPDATE(Mercancia_ID)
+  BEGIN
+    IF EXISTS (
+      SELECT * FROM deleted,Cargas
+      WHERE
+        /*  %JoinFKPK(Cargas,deleted," = "," AND") */
+        Cargas.Mercancia_ID = deleted.Mercancia_ID
+    )
+    BEGIN
+      SELECT @errno  = 30005,
+             @errmsg = 'Cannot update Mercancia because Cargas exists.'
+      GOTO ERROR
+    END
+  END
+
+  /* ERwin Builtin Trigger */
+  /* Categoria  Mercancia on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Categoria"
+    CHILD_OWNER="", CHILD_TABLE="Mercancia"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_126", FK_COLUMNS="Categoria_ID" */
+  IF
+    /* %ChildFK(" OR",UPDATE) */
+    UPDATE(Categoria_ID)
+  BEGIN
+    SELECT @nullcnt = 0
+    SELECT @validcnt = count(*)
+      FROM inserted,Categoria
+        WHERE
+          /* %JoinFKPK(inserted,Categoria) */
+          inserted.Categoria_ID = Categoria.Categoria_ID
+    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
+    select @nullcnt = count(*) from inserted where
+      inserted.Categoria_ID IS NULL
+    IF @validcnt + @nullcnt != @NUMROWS
+    BEGIN
+      SELECT @errno  = 30007,
+             @errmsg = 'Cannot update Mercancia because Categoria does not exist.'
       GOTO ERROR
     END
   END
@@ -6608,8 +6961,26 @@ BEGIN
   DECLARE  @errno   int,
            @errmsg  varchar(255)
     /* ERwin Builtin Trigger */
+    /* Orden_Envio  Orden_Servicio on parent delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00034b81", PARENT_OWNER="", PARENT_TABLE="Orden_Envio"
+    CHILD_OWNER="", CHILD_TABLE="Orden_Servicio"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_127", FK_COLUMNS="OE_ID" */
+    IF EXISTS (
+      SELECT * FROM deleted,Orden_Servicio
+      WHERE
+        /*  %JoinFKPK(Orden_Servicio,deleted," = "," AND") */
+        Orden_Servicio.OE_ID = deleted.OE_ID
+    )
+    BEGIN
+      SELECT @errno  = 30001,
+             @errmsg = 'Cannot delete Orden_Envio because Orden_Servicio exists.'
+      GOTO ERROR
+    END
+
+    /* ERwin Builtin Trigger */
     /* Buques  Orden_Envio on child delete no action */
-    /* ERWIN_RELATION:CHECKSUM="00038ef9", PARENT_OWNER="", PARENT_TABLE="Buques"
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Buques"
     CHILD_OWNER="", CHILD_TABLE="Orden_Envio"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
     FK_CONSTRAINT="R_107", FK_COLUMNS="Buque_ID" */
@@ -6627,29 +6998,6 @@ BEGIN
     BEGIN
       SELECT @errno  = 30010,
              @errmsg = 'Cannot delete last Orden_Envio because Buques exists.'
-      GOTO ERROR
-    END
-
-    /* ERwin Builtin Trigger */
-    /* Registro_Comun  Orden_Envio on child delete no action */
-    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Registro_Comun"
-    CHILD_OWNER="", CHILD_TABLE="Orden_Envio"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_108", FK_COLUMNS="Registro_ID" */
-    IF EXISTS (SELECT * FROM deleted,Registro_Comun
-      WHERE
-        /* %JoinFKPK(deleted,Registro_Comun," = "," AND") */
-        deleted.Registro_ID = Registro_Comun.Registro_ID AND
-        NOT EXISTS (
-          SELECT * FROM Orden_Envio
-          WHERE
-            /* %JoinFKPK(Orden_Envio,Registro_Comun," = "," AND") */
-            Orden_Envio.Registro_ID = Registro_Comun.Registro_ID
-        )
-    )
-    BEGIN
-      SELECT @errno  = 30010,
-             @errmsg = 'Cannot delete last Orden_Envio because Registro_Comun exists.'
       GOTO ERROR
     END
 
@@ -6700,8 +7048,31 @@ BEGIN
 
   SELECT @NUMROWS = @@rowcount
   /* ERwin Builtin Trigger */
+  /* Orden_Envio  Orden_Servicio on parent update no action */
+  /* ERWIN_RELATION:CHECKSUM="0003cbe7", PARENT_OWNER="", PARENT_TABLE="Orden_Envio"
+    CHILD_OWNER="", CHILD_TABLE="Orden_Servicio"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_127", FK_COLUMNS="OE_ID" */
+  IF
+    /* %ParentPK(" OR",UPDATE) */
+    UPDATE(OE_ID)
+  BEGIN
+    IF EXISTS (
+      SELECT * FROM deleted,Orden_Servicio
+      WHERE
+        /*  %JoinFKPK(Orden_Servicio,deleted," = "," AND") */
+        Orden_Servicio.OE_ID = deleted.OE_ID
+    )
+    BEGIN
+      SELECT @errno  = 30005,
+             @errmsg = 'Cannot update Orden_Envio because Orden_Servicio exists.'
+      GOTO ERROR
+    END
+  END
+
+  /* ERwin Builtin Trigger */
   /* Buques  Orden_Envio on child update no action */
-  /* ERWIN_RELATION:CHECKSUM="00044bb5", PARENT_OWNER="", PARENT_TABLE="Buques"
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Buques"
     CHILD_OWNER="", CHILD_TABLE="Orden_Envio"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
     FK_CONSTRAINT="R_107", FK_COLUMNS="Buque_ID" */
@@ -6722,33 +7093,6 @@ BEGIN
     BEGIN
       SELECT @errno  = 30007,
              @errmsg = 'Cannot update Orden_Envio because Buques does not exist.'
-      GOTO ERROR
-    END
-  END
-
-  /* ERwin Builtin Trigger */
-  /* Registro_Comun  Orden_Envio on child update no action */
-  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Registro_Comun"
-    CHILD_OWNER="", CHILD_TABLE="Orden_Envio"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_108", FK_COLUMNS="Registro_ID" */
-  IF
-    /* %ChildFK(" OR",UPDATE) */
-    UPDATE(Registro_ID)
-  BEGIN
-    SELECT @nullcnt = 0
-    SELECT @validcnt = count(*)
-      FROM inserted,Registro_Comun
-        WHERE
-          /* %JoinFKPK(inserted,Registro_Comun) */
-          inserted.Registro_ID = Registro_Comun.Registro_ID
-    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
-    select @nullcnt = count(*) from inserted where
-      inserted.Registro_ID IS NULL
-    IF @validcnt + @nullcnt != @NUMROWS
-    BEGIN
-      SELECT @errno  = 30007,
-             @errmsg = 'Cannot update Orden_Envio because Registro_Comun does not exist.'
       GOTO ERROR
     END
   END
@@ -6800,8 +7144,26 @@ BEGIN
   DECLARE  @errno   int,
            @errmsg  varchar(255)
     /* ERwin Builtin Trigger */
+    /* Orden_Servicio  Vehiculos on parent delete no action */
+    /* ERWIN_RELATION:CHECKSUM="000498fa", PARENT_OWNER="", PARENT_TABLE="Orden_Servicio"
+    CHILD_OWNER="", CHILD_TABLE="Vehiculos"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_128", FK_COLUMNS="OS_ID" */
+    IF EXISTS (
+      SELECT * FROM deleted,Vehiculos
+      WHERE
+        /*  %JoinFKPK(Vehiculos,deleted," = "," AND") */
+        Vehiculos.OS_ID = deleted.OS_ID
+    )
+    BEGIN
+      SELECT @errno  = 30001,
+             @errmsg = 'Cannot delete Orden_Servicio because Vehiculos exists.'
+      GOTO ERROR
+    END
+
+    /* ERwin Builtin Trigger */
     /* Empresas  Orden_Servicio on child delete no action */
-    /* ERWIN_RELATION:CHECKSUM="0003b7f9", PARENT_OWNER="", PARENT_TABLE="Empresas"
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Empresas"
     CHILD_OWNER="", CHILD_TABLE="Orden_Servicio"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
     FK_CONSTRAINT="R_106", FK_COLUMNS="Empresa_ID" */
@@ -6819,29 +7181,6 @@ BEGIN
     BEGIN
       SELECT @errno  = 30010,
              @errmsg = 'Cannot delete last Orden_Servicio because Empresas exists.'
-      GOTO ERROR
-    END
-
-    /* ERwin Builtin Trigger */
-    /* Registro_Comun  Orden_Servicio on child delete no action */
-    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Registro_Comun"
-    CHILD_OWNER="", CHILD_TABLE="Orden_Servicio"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_109", FK_COLUMNS="Registro_ID" */
-    IF EXISTS (SELECT * FROM deleted,Registro_Comun
-      WHERE
-        /* %JoinFKPK(deleted,Registro_Comun," = "," AND") */
-        deleted.Registro_ID = Registro_Comun.Registro_ID AND
-        NOT EXISTS (
-          SELECT * FROM Orden_Servicio
-          WHERE
-            /* %JoinFKPK(Orden_Servicio,Registro_Comun," = "," AND") */
-            Orden_Servicio.Registro_ID = Registro_Comun.Registro_ID
-        )
-    )
-    BEGIN
-      SELECT @errno  = 30010,
-             @errmsg = 'Cannot delete last Orden_Servicio because Registro_Comun exists.'
       GOTO ERROR
     END
 
@@ -6865,6 +7204,29 @@ BEGIN
     BEGIN
       SELECT @errno  = 30010,
              @errmsg = 'Cannot delete last Orden_Servicio because Listado exists.'
+      GOTO ERROR
+    END
+
+    /* ERwin Builtin Trigger */
+    /* Orden_Envio  Orden_Servicio on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Orden_Envio"
+    CHILD_OWNER="", CHILD_TABLE="Orden_Servicio"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_127", FK_COLUMNS="OE_ID" */
+    IF EXISTS (SELECT * FROM deleted,Orden_Envio
+      WHERE
+        /* %JoinFKPK(deleted,Orden_Envio," = "," AND") */
+        deleted.OE_ID = Orden_Envio.OE_ID AND
+        NOT EXISTS (
+          SELECT * FROM Orden_Servicio
+          WHERE
+            /* %JoinFKPK(Orden_Servicio,Orden_Envio," = "," AND") */
+            Orden_Servicio.OE_ID = Orden_Envio.OE_ID
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Orden_Servicio because Orden_Envio exists.'
       GOTO ERROR
     END
 
@@ -6892,8 +7254,31 @@ BEGIN
 
   SELECT @NUMROWS = @@rowcount
   /* ERwin Builtin Trigger */
+  /* Orden_Servicio  Vehiculos on parent update no action */
+  /* ERWIN_RELATION:CHECKSUM="000560a5", PARENT_OWNER="", PARENT_TABLE="Orden_Servicio"
+    CHILD_OWNER="", CHILD_TABLE="Vehiculos"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_128", FK_COLUMNS="OS_ID" */
+  IF
+    /* %ParentPK(" OR",UPDATE) */
+    UPDATE(OS_ID)
+  BEGIN
+    IF EXISTS (
+      SELECT * FROM deleted,Vehiculos
+      WHERE
+        /*  %JoinFKPK(Vehiculos,deleted," = "," AND") */
+        Vehiculos.OS_ID = deleted.OS_ID
+    )
+    BEGIN
+      SELECT @errno  = 30005,
+             @errmsg = 'Cannot update Orden_Servicio because Vehiculos exists.'
+      GOTO ERROR
+    END
+  END
+
+  /* ERwin Builtin Trigger */
   /* Empresas  Orden_Servicio on child update no action */
-  /* ERWIN_RELATION:CHECKSUM="00045191", PARENT_OWNER="", PARENT_TABLE="Empresas"
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Empresas"
     CHILD_OWNER="", CHILD_TABLE="Orden_Servicio"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
     FK_CONSTRAINT="R_106", FK_COLUMNS="Empresa_ID" */
@@ -6914,33 +7299,6 @@ BEGIN
     BEGIN
       SELECT @errno  = 30007,
              @errmsg = 'Cannot update Orden_Servicio because Empresas does not exist.'
-      GOTO ERROR
-    END
-  END
-
-  /* ERwin Builtin Trigger */
-  /* Registro_Comun  Orden_Servicio on child update no action */
-  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Registro_Comun"
-    CHILD_OWNER="", CHILD_TABLE="Orden_Servicio"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_109", FK_COLUMNS="Registro_ID" */
-  IF
-    /* %ChildFK(" OR",UPDATE) */
-    UPDATE(Registro_ID)
-  BEGIN
-    SELECT @nullcnt = 0
-    SELECT @validcnt = count(*)
-      FROM inserted,Registro_Comun
-        WHERE
-          /* %JoinFKPK(inserted,Registro_Comun) */
-          inserted.Registro_ID = Registro_Comun.Registro_ID
-    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
-    select @nullcnt = count(*) from inserted where
-      inserted.Registro_ID IS NULL
-    IF @validcnt + @nullcnt != @NUMROWS
-    BEGIN
-      SELECT @errno  = 30007,
-             @errmsg = 'Cannot update Orden_Servicio because Registro_Comun does not exist.'
       GOTO ERROR
     END
   END
@@ -6968,6 +7326,33 @@ BEGIN
     BEGIN
       SELECT @errno  = 30007,
              @errmsg = 'Cannot update Orden_Servicio because Listado does not exist.'
+      GOTO ERROR
+    END
+  END
+
+  /* ERwin Builtin Trigger */
+  /* Orden_Envio  Orden_Servicio on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Orden_Envio"
+    CHILD_OWNER="", CHILD_TABLE="Orden_Servicio"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_127", FK_COLUMNS="OE_ID" */
+  IF
+    /* %ChildFK(" OR",UPDATE) */
+    UPDATE(OE_ID)
+  BEGIN
+    SELECT @nullcnt = 0
+    SELECT @validcnt = count(*)
+      FROM inserted,Orden_Envio
+        WHERE
+          /* %JoinFKPK(inserted,Orden_Envio) */
+          inserted.OE_ID = Orden_Envio.OE_ID
+    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
+    select @nullcnt = count(*) from inserted where
+      inserted.OE_ID IS NULL
+    IF @validcnt + @nullcnt != @NUMROWS
+    BEGIN
+      SELECT @errno  = 30007,
+             @errmsg = 'Cannot update Orden_Servicio because Orden_Envio does not exist.'
       GOTO ERROR
     END
   END
@@ -7600,130 +7985,6 @@ BEGIN
     BEGIN
       SELECT @errno  = 30007,
              @errmsg = 'Cannot update Personas_Requizadas because Cargos_Imputados does not exist.'
-      GOTO ERROR
-    END
-  END
-
-
-  /* ERwin Builtin Trigger */
-  RETURN
-ERROR:
-    raiserror @errno @errmsg
-    rollback transaction
-END
-
-go
-
-
-
-
-CREATE TRIGGER tD_Registro_Comun ON Registro_Comun FOR DELETE AS
-/* ERwin Builtin Trigger */
-/* DELETE trigger on Registro_Comun */
-BEGIN
-  DECLARE  @errno   int,
-           @errmsg  varchar(255)
-    /* ERwin Builtin Trigger */
-    /* Registro_Comun  Orden_Envio on parent delete no action */
-    /* ERWIN_RELATION:CHECKSUM="0002125f", PARENT_OWNER="", PARENT_TABLE="Registro_Comun"
-    CHILD_OWNER="", CHILD_TABLE="Orden_Envio"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_108", FK_COLUMNS="Registro_ID" */
-    IF EXISTS (
-      SELECT * FROM deleted,Orden_Envio
-      WHERE
-        /*  %JoinFKPK(Orden_Envio,deleted," = "," AND") */
-        Orden_Envio.Registro_ID = deleted.Registro_ID
-    )
-    BEGIN
-      SELECT @errno  = 30001,
-             @errmsg = 'Cannot delete Registro_Comun because Orden_Envio exists.'
-      GOTO ERROR
-    END
-
-    /* ERwin Builtin Trigger */
-    /* Registro_Comun  Orden_Servicio on parent delete no action */
-    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Registro_Comun"
-    CHILD_OWNER="", CHILD_TABLE="Orden_Servicio"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_109", FK_COLUMNS="Registro_ID" */
-    IF EXISTS (
-      SELECT * FROM deleted,Orden_Servicio
-      WHERE
-        /*  %JoinFKPK(Orden_Servicio,deleted," = "," AND") */
-        Orden_Servicio.Registro_ID = deleted.Registro_ID
-    )
-    BEGIN
-      SELECT @errno  = 30001,
-             @errmsg = 'Cannot delete Registro_Comun because Orden_Servicio exists.'
-      GOTO ERROR
-    END
-
-
-    /* ERwin Builtin Trigger */
-    RETURN
-ERROR:
-    raiserror @errno @errmsg
-    rollback transaction
-END
-
-go
-
-
-CREATE TRIGGER tU_Registro_Comun ON Registro_Comun FOR UPDATE AS
-/* ERwin Builtin Trigger */
-/* UPDATE trigger on Registro_Comun */
-BEGIN
-  DECLARE  @NUMROWS int,
-           @nullcnt int,
-           @validcnt int,
-           @insRegistro_ID integer,
-           @errno   int,
-           @errmsg  varchar(255)
-
-  SELECT @NUMROWS = @@rowcount
-  /* ERwin Builtin Trigger */
-  /* Registro_Comun  Orden_Envio on parent update no action */
-  /* ERWIN_RELATION:CHECKSUM="00024722", PARENT_OWNER="", PARENT_TABLE="Registro_Comun"
-    CHILD_OWNER="", CHILD_TABLE="Orden_Envio"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_108", FK_COLUMNS="Registro_ID" */
-  IF
-    /* %ParentPK(" OR",UPDATE) */
-    UPDATE(Registro_ID)
-  BEGIN
-    IF EXISTS (
-      SELECT * FROM deleted,Orden_Envio
-      WHERE
-        /*  %JoinFKPK(Orden_Envio,deleted," = "," AND") */
-        Orden_Envio.Registro_ID = deleted.Registro_ID
-    )
-    BEGIN
-      SELECT @errno  = 30005,
-             @errmsg = 'Cannot update Registro_Comun because Orden_Envio exists.'
-      GOTO ERROR
-    END
-  END
-
-  /* ERwin Builtin Trigger */
-  /* Registro_Comun  Orden_Servicio on parent update no action */
-  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Registro_Comun"
-    CHILD_OWNER="", CHILD_TABLE="Orden_Servicio"
-    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
-    FK_CONSTRAINT="R_109", FK_COLUMNS="Registro_ID" */
-  IF
-    /* %ParentPK(" OR",UPDATE) */
-    UPDATE(Registro_ID)
-  BEGIN
-    IF EXISTS (
-      SELECT * FROM deleted,Orden_Servicio
-      WHERE
-        /*  %JoinFKPK(Orden_Servicio,deleted," = "," AND") */
-        Orden_Servicio.Registro_ID = deleted.Registro_ID
-    )
-    BEGIN
-      SELECT @errno  = 30005,
-             @errmsg = 'Cannot update Registro_Comun because Orden_Servicio exists.'
       GOTO ERROR
     END
   END
@@ -8695,7 +8956,7 @@ BEGIN
            @errmsg  varchar(255)
     /* ERwin Builtin Trigger */
     /* Vehiculos  Operacion_Despachos on parent delete no action */
-    /* ERWIN_RELATION:CHECKSUM="0004b2c8", PARENT_OWNER="", PARENT_TABLE="Vehiculos"
+    /* ERWIN_RELATION:CHECKSUM="0005e19a", PARENT_OWNER="", PARENT_TABLE="Vehiculos"
     CHILD_OWNER="", CHILD_TABLE="Operacion_Despachos"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
     FK_CONSTRAINT="R_51", FK_COLUMNS="Vehiculo_ID" */
@@ -8780,6 +9041,29 @@ BEGIN
       GOTO ERROR
     END
 
+    /* ERwin Builtin Trigger */
+    /* Orden_Servicio  Vehiculos on child delete no action */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Orden_Servicio"
+    CHILD_OWNER="", CHILD_TABLE="Vehiculos"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_128", FK_COLUMNS="OS_ID" */
+    IF EXISTS (SELECT * FROM deleted,Orden_Servicio
+      WHERE
+        /* %JoinFKPK(deleted,Orden_Servicio," = "," AND") */
+        deleted.OS_ID = Orden_Servicio.OS_ID AND
+        NOT EXISTS (
+          SELECT * FROM Vehiculos
+          WHERE
+            /* %JoinFKPK(Vehiculos,Orden_Servicio," = "," AND") */
+            Vehiculos.OS_ID = Orden_Servicio.OS_ID
+        )
+    )
+    BEGIN
+      SELECT @errno  = 30010,
+             @errmsg = 'Cannot delete last Vehiculos because Orden_Servicio exists.'
+      GOTO ERROR
+    END
+
 
     /* ERwin Builtin Trigger */
     RETURN
@@ -8805,7 +9089,7 @@ BEGIN
   SELECT @NUMROWS = @@rowcount
   /* ERwin Builtin Trigger */
   /* Vehiculos  Operacion_Despachos on parent update no action */
-  /* ERWIN_RELATION:CHECKSUM="00057cfe", PARENT_OWNER="", PARENT_TABLE="Vehiculos"
+  /* ERWIN_RELATION:CHECKSUM="0006e7c2", PARENT_OWNER="", PARENT_TABLE="Vehiculos"
     CHILD_OWNER="", CHILD_TABLE="Operacion_Despachos"
     P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
     FK_CONSTRAINT="R_51", FK_COLUMNS="Vehiculo_ID" */
@@ -8903,6 +9187,33 @@ BEGIN
     BEGIN
       SELECT @errno  = 30007,
              @errmsg = 'Cannot update Vehiculos because Cuidades does not exist.'
+      GOTO ERROR
+    END
+  END
+
+  /* ERwin Builtin Trigger */
+  /* Orden_Servicio  Vehiculos on child update no action */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="Orden_Servicio"
+    CHILD_OWNER="", CHILD_TABLE="Vehiculos"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_128", FK_COLUMNS="OS_ID" */
+  IF
+    /* %ChildFK(" OR",UPDATE) */
+    UPDATE(OS_ID)
+  BEGIN
+    SELECT @nullcnt = 0
+    SELECT @validcnt = count(*)
+      FROM inserted,Orden_Servicio
+        WHERE
+          /* %JoinFKPK(inserted,Orden_Servicio) */
+          inserted.OS_ID = Orden_Servicio.OS_ID
+    /* %NotnullFK(inserted," IS NULL","select @nullcnt = count(*) from inserted where"," AND") */
+    select @nullcnt = count(*) from inserted where
+      inserted.OS_ID IS NULL
+    IF @validcnt + @nullcnt != @NUMROWS
+    BEGIN
+      SELECT @errno  = 30007,
+             @errmsg = 'Cannot update Vehiculos because Orden_Servicio does not exist.'
       GOTO ERROR
     END
   END
