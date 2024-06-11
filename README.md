@@ -7,8 +7,8 @@ Echo en base a:
 .
 ### Informacion Academica:
 - Alumnos:
-	- Isla Cortegano
-	- Lovera Vieira
+	- Victor Ernesto Isla Cortegano Isla Cortegano
+	- Jose Miguel Lovera Vieira
 - Docente:
 	- MSc. Francisco Miguel Ruiz Hidalgo Ing
 ### Recursos adicionales
