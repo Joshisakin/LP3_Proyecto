@@ -4,16 +4,16 @@
   "settings": {
     "width": 4500,
     "height": 4500,
-    "scrollTop": -2095.3333,
-    "scrollLeft": -1067.3333,
+    "scrollTop": -1549.3967,
+    "scrollLeft": -646.8306,
     "zoomLevel": 1,
     "show": 511,
     "database": 4,
     "databaseName": "SistemaPuerto",
-    "canvasType": "@dineug/erd-editor/builtin-visualization",
-    "language": 1,
+    "canvasType": "@dineug/erd-editor/builtin-generator-code",
+    "language": 2,
     "tableNameCase": 4,
-    "columnNameCase": 2,
+    "columnNameCase": 8,
     "bracketType": 1,
     "relationshipDataTypeSync": true,
     "relationshipOptimization": false,
@@ -477,7 +477,7 @@
       },
       "nYo-1ODt3KMziNO5PlaX7": {
         "id": "nYo-1ODt3KMziNO5PlaX7",
-        "name": "Cuidades",
+        "name": "Ciudades",
         "comment": "",
         "columnIds": [
           "w2VARPXEn70d9_dM9o9B3",
@@ -498,7 +498,7 @@
           "color": ""
         },
         "meta": {
-          "updateAt": 1718138959544,
+          "updateAt": 1718290166910,
           "createAt": 1718138599624
         }
       },
@@ -6501,6 +6501,14 @@
       -1,
       {
         "databaseName": 1718138913123
+      }
+    ],
+    "nYo-1ODt3KMziNO5PlaX7": [
+      "tableEntities",
+      -1,
+      -1,
+      {
+        "name": 1718290166909
       }
     ]
   }

@@ -191,7 +191,7 @@ go
 
 
 
-CREATE TABLE Cuidades
+CREATE TABLE Ciudades
 ( 
 	Ciudades_ID          integer IDENTITY ( 1,1 ) ,
 	Nombre_Ciudad        varchar(20)  NOT NULL ,
@@ -201,7 +201,7 @@ go
 
 
 
-ALTER TABLE Cuidades
+ALTER TABLE Ciudades
 	ADD CONSTRAINT XPKCuidades PRIMARY KEY  CLUSTERED (Ciudades_ID ASC)
 go
 

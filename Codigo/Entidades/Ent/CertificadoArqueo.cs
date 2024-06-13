@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entidades
+namespace Entidades.Ent
 {
-    public class Ent_Arqueo
+    public class CertificadoArqueo
     {
         public  int Arqueo_ID {get; set;}
         public int Tamaño {get; set;}

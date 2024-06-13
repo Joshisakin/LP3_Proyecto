@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades.Ent
 {
-    internal class Ent_Asignacion
+    public class Asignaciones
     {
         public int Asignacion_ID { get; set;}
         public string Nombre_Designacion { get; set;}
