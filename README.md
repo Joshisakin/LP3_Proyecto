@@ -13,7 +13,7 @@ Echo en base a:
 ### Informacion Academica
 
 - Alumnos:
-  - Victor Ernesto Isla Cortegano Isla Cortegano
+  - Victor Ernesto Isla Cortegano
   - Jose Miguel Lovera Vieira
 - Docente:
   - MSc. Francisco Miguel Ruiz Hidalgo Ing
