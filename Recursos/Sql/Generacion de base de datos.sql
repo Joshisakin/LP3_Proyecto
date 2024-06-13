@@ -142,7 +142,7 @@ go
 CREATE TABLE Certificado_Arqueo
 ( 
 	Arqueo_ID            integer IDENTITY ( 1,1 ) ,
-	Tamaño               decimal(2)  NOT NULL ,
+	Tamaño               INT  NOT NULL ,
 	Tonelaje             decimal(2)  NOT NULL ,
 	Capacidad_Carga      decimal(2)  NOT NULL 
 )
