@@ -24,10 +24,11 @@ C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\bin\Debug\Re
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\bin\Debug\Reglas.Negocio.pdb
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.csproj.AssemblyReference.cache
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.FrmPaises.resources
-C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.FrmPrincipal.resources
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.Properties.Resources.resources
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.csproj.GenerateResource.cache
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.csproj.CoreCompileInputs.cache
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.csproj.Up2Date
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.exe
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.pdb
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.FrmChild.FrmxRol.MainControlador.resources
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.Login.resources
