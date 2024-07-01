@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entidades
+namespace Entidades.Ent
 {
-    //primer cambio
-    public class Ent_Almacen
+    public class Almacenes
     {
         public int Almacen_ID { get; set; }
         public int Carga_ID { get; set; }

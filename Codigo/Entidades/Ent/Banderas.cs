@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades.Ent
 {
-    internal class Ent_Bandera
+    public class Banderas
     {
         public int Bandera_ID { get; set; }
         public string Designacion_Bandera { get; set; }
