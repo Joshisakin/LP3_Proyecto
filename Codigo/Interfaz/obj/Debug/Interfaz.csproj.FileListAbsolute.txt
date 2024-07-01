@@ -17,3 +17,17 @@ C:\Users\jlove\Source\Repos\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.cspr
 C:\Users\jlove\Source\Repos\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.exe
 C:\Users\jlove\Source\Repos\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.pdb
 C:\Users\jlove\Source\Repos\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.FrmPrincipal.resources
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\bin\Debug\Interfaz.exe.config
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\bin\Debug\Interfaz.exe
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\bin\Debug\Interfaz.pdb
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\bin\Debug\Reglas.Negocio.dll
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\bin\Debug\Reglas.Negocio.pdb
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.csproj.AssemblyReference.cache
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.FrmPaises.resources
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.FrmPrincipal.resources
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.Properties.Resources.resources
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.csproj.GenerateResource.cache
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.csproj.CoreCompileInputs.cache
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.csproj.Up2Date
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.exe
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.pdb
