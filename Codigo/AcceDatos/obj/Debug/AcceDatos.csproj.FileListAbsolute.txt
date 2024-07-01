@@ -4,3 +4,12 @@ C:\Users\jlove\Source\Repos\LP3_Proyecto\AcceDatos\obj\Debug\AcceDatos.csproj.As
 C:\Users\jlove\Source\Repos\LP3_Proyecto\AcceDatos\obj\Debug\AcceDatos.csproj.CoreCompileInputs.cache
 C:\Users\jlove\Source\Repos\LP3_Proyecto\AcceDatos\obj\Debug\AcceDatos.dll
 C:\Users\jlove\Source\Repos\LP3_Proyecto\AcceDatos\obj\Debug\AcceDatos.pdb
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\AcceDatos\bin\Debug\AcceDatos.dll
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\AcceDatos\bin\Debug\AcceDatos.pdb
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\AcceDatos\bin\Debug\Entidades.dll
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\AcceDatos\bin\Debug\Entidades.pdb
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\AcceDatos\obj\Debug\AcceDatos.csproj.AssemblyReference.cache
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\AcceDatos\obj\Debug\AcceDatos.csproj.CoreCompileInputs.cache
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\AcceDatos\obj\Debug\AcceDatos.csproj.Up2Date
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\AcceDatos\obj\Debug\AcceDatos.dll
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\AcceDatos\obj\Debug\AcceDatos.pdb

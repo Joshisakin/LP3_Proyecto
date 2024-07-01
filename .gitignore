@@ -1,3 +1,9 @@
 /.vs
 /.vscode
 LP3_Proyecto.code-workspace
+/Codigo/AcceDatos/obj
+/Codigo/Entidades/obj
+/Codigo/Interfaz/obj
+/Codigo/Interfaz/obj/Debug
+/Codigo/Reglas de negocio/obj
+/Codigo/Reglas de negocio/obj/Debug
