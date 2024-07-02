@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Interfaz.FrmChild.FrmxRol;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,6 +21,13 @@ namespace Interfaz
         private void Login_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnIngreso_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            MainControlador frm = new MainControlador();
+            frm.Show();
         }
     }
 }
