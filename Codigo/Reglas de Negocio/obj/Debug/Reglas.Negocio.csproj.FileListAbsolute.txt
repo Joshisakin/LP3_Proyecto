@@ -1,11 +1,11 @@
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\bin\Debug\Reglas.Negocio.dll
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\bin\Debug\Reglas.Negocio.pdb
-C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\bin\Debug\AcceDatos.dll
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\bin\Debug\Entidades.dll
-C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\bin\Debug\AcceDatos.pdb
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\bin\Debug\Entidades.pdb
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\obj\Debug\Reglas.Negocio.csproj.AssemblyReference.cache
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\obj\Debug\Reglas.Negocio.csproj.CoreCompileInputs.cache
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\obj\Debug\Reglas.N.107252E3.Up2Date
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\obj\Debug\Reglas.Negocio.dll
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\obj\Debug\Reglas.Negocio.pdb
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\bin\Debug\AcceDatos.dll
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\bin\Debug\AcceDatos.pdb
