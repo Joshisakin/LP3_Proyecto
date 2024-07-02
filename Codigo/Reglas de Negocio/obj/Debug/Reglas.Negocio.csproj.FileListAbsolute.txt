@@ -9,3 +9,7 @@ C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\obj
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\obj\Debug\Reglas.N.107252E3.Up2Date
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\obj\Debug\Reglas.Negocio.dll
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\obj\Debug\Reglas.Negocio.pdb
+C:\Users\victr\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\obj\Debug\Reglas.Negocio.csproj.AssemblyReference.cache
+C:\Users\victr\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\obj\Debug\Reglas.Negocio.csproj.CoreCompileInputs.cache
+C:\Users\victr\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\obj\Debug\Reglas.Negocio.dll
+C:\Users\victr\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Reglas de Negocio\obj\Debug\Reglas.Negocio.pdb

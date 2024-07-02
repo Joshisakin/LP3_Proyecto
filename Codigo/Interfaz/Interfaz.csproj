@@ -64,6 +64,18 @@
     <Compile Include="FrmChild\FrmxRol\Controlador\MdiChild\FrmOrdenes.Designer.cs">
       <DependentUpon>FrmOrdenes.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmChild\FrmxRol\Controlador\MdiChild\FrmSolicitudes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmChild\FrmxRol\Controlador\MdiChild\FrmSolicitudes.Designer.cs">
+      <DependentUpon>FrmSolicitudes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmChild\FrmxRol\Inspector\FrmInspector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmChild\FrmxRol\Inspector\FrmInspector.Designer.cs">
+      <DependentUpon>FrmInspector.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +89,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmChild\FrmxRol\Controlador\MainControlador.resx">
       <DependentUpon>MainControlador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmChild\FrmxRol\Controlador\MdiChild\FrmSolicitudes.resx">
+      <DependentUpon>FrmSolicitudes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmChild\FrmxRol\Inspector\FrmInspector.resx">
+      <DependentUpon>FrmInspector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -109,5 +127,6 @@
       <Name>Reglas.Negocio</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

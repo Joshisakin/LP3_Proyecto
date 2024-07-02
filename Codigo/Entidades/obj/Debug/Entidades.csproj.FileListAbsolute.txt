@@ -4,3 +4,7 @@ C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Entidades\obj\Debug\E
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Entidades\obj\Debug\Entidades.dll
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Entidades\obj\Debug\Entidades.pdb
+C:\Users\victr\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Entidades\obj\Debug\Entidades.csproj.AssemblyReference.cache
+C:\Users\victr\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
+C:\Users\victr\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Entidades\obj\Debug\Entidades.dll
+C:\Users\victr\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Entidades\obj\Debug\Entidades.pdb

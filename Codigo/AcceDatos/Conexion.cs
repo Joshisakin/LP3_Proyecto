@@ -18,9 +18,9 @@ public class Conexion
         private Conexion()
         {
             this.Base = "SistemaPortuario";//El nombre por defecto de la base de datos sera "SistemaPortuario"
-            this.Servidor = "";
-            this.Usuario = "";//tal vez estos valores deban ingresar por una interfaz
-            this.Clave= "";
+            this.Servidor = "BITRO\\SQLEXPRESS";
+            this.Usuario = "sa";//tal vez estos valores deban ingresar por una interfaz
+            this.Clave= "<77Warrior77>";
             this.Seguridad= false;
         }
         public SqlConnection CrearConexion()
