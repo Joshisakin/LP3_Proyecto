@@ -7,3 +7,6 @@ LP3_Proyecto.code-workspace
 /Codigo/Interfaz/obj/Debug
 /Codigo/Reglas de negocio/obj
 /Codigo/Reglas de negocio/obj/Debug
+Codigo/AcceDatos/obj/Debug/AcceDatos.csproj.AssemblyReference.cache
+Codigo/Interfaz/obj/Debug/Interfaz.csproj.AssemblyReference.cache
+Codigo/Reglas de Negocio/obj/Debug/Reglas.Negocio.csproj.AssemblyReference.cache
