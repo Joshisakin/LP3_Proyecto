@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConexClases\DEmpresa.cs" />
+    <Compile Include="ConexClases\DRubro.cs" />
     <Compile Include="ConexClases\Solicitudes.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

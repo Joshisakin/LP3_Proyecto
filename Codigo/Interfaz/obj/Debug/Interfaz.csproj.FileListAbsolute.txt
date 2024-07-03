@@ -32,3 +32,10 @@ C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\In
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.pdb
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.FrmChild.FrmxRol.MainControlador.resources
 C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.Login.resources
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.FrmChild.FrmxRol.Controlador.MdiChild.FrmOrdenes.resources
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.FrmChild.FrmxRol.Controlador.MdiChild.SubFrm.AddEmpresa.resources
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\obj\Debug\Interfaz.FrmChild.FrmxRol.Controlador.MdiChild.SubFrm.AddRubro.resources
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\bin\Debug\AcceDatos.dll
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\bin\Debug\Entidades.dll
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\bin\Debug\AcceDatos.pdb
+C:\Users\jlove\Source\Repos\Joshisakin\LP3_Proyecto\Codigo\Interfaz\bin\Debug\Entidades.pdb

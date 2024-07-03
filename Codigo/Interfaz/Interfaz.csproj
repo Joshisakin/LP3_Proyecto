@@ -64,6 +64,30 @@
     <Compile Include="FrmChild\FrmxRol\Controlador\MdiChild\FrmOrdenes.Designer.cs">
       <DependentUpon>FrmOrdenes.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmChild\FrmxRol\Controlador\MdiChild\SubFrm\AddEmpresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmChild\FrmxRol\Controlador\MdiChild\SubFrm\AddEmpresa.Designer.cs">
+      <DependentUpon>AddEmpresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmChild\FrmxRol\Controlador\MdiChild\SubFrm\AddNavio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmChild\FrmxRol\Controlador\MdiChild\SubFrm\AddNavio.Designer.cs">
+      <DependentUpon>AddNavio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmChild\FrmxRol\Controlador\MdiChild\SubFrm\AddProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmChild\FrmxRol\Controlador\MdiChild\SubFrm\AddProducto.Designer.cs">
+      <DependentUpon>AddProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmChild\FrmxRol\Controlador\MdiChild\SubFrm\AddRubro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmChild\FrmxRol\Controlador\MdiChild\SubFrm\AddRubro.Designer.cs">
+      <DependentUpon>AddRubro.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +101,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmChild\FrmxRol\Controlador\MainControlador.resx">
       <DependentUpon>MainControlador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmChild\FrmxRol\Controlador\MdiChild\FrmOrdenes.resx">
+      <DependentUpon>FrmOrdenes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmChild\FrmxRol\Controlador\MdiChild\SubFrm\AddEmpresa.resx">
+      <DependentUpon>AddEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmChild\FrmxRol\Controlador\MdiChild\SubFrm\AddRubro.resx">
+      <DependentUpon>AddRubro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

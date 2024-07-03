@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Interfaz.FrmChild.FrmxRol.Controlador.MdiChild;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,6 +26,18 @@ namespace Interfaz.FrmChild.FrmxRol
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void agregarUnaOrdenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmOrdenes frm = new FrmOrdenes();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

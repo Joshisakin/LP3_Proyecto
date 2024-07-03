@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades.Ent
 {
-    public classModelosVehiculo
+    public class ModelosVehiculo
     {
         public int Modelo_id { get; set; }
         public string Denominacion_modelo { get; set; }

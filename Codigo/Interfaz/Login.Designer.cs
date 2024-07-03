@@ -76,6 +76,7 @@
             this.btnIngreso.TabIndex = 4;
             this.btnIngreso.Text = "Ingreso";
             this.btnIngreso.UseVisualStyleBackColor = true;
+            this.btnIngreso.Click += new System.EventHandler(this.btnIngreso_Click);
             // 
             // Login
             // 

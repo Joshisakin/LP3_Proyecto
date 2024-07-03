@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades.Ent
 {
-    public Vehiculos 
+    public class Vehiculos 
     {
         public int Vehiculo_id { get; set; }
         public decimal Capacidad { get; set; }
