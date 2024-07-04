@@ -3,7 +3,7 @@
 ---Base de Datos General
 CREATE TABLE "Almacenes"
 (
-  "Almacen_ID"   integer NOT NULL,
+  "Almacen_ID"   integer NOT NULL IDENTITY(1,1),
   "Despacho_ID"  integer NOT NULL,
   "Seccion_ID"   integer NOT NULL,
   "Recepcion_ID" integer NOT NULL,
@@ -13,7 +13,7 @@ GO
 
 CREATE TABLE "Asignaciones"
 (
-  "Asignacion_ID"         integer     NOT NULL,
+  "Asignacion_ID"         integer     NOT NULL IDENTITY(1,1),
   "Nombre_de_Desginacion" varchar(40) NOT NULL,
   "Nivel_de_Acceso"       numeric(1)  NOT NULL,
   CONSTRAINT "PK_Asignaciones" PRIMARY KEY ("Asignacion_ID")
@@ -22,7 +22,7 @@ GO
 
 CREATE TABLE "Banderas"
 (
-  "Bandera_ID"          integer     NOT NULL,
+  "Bandera_ID"          integer     NOT NULL IDENTITY(1,1),
   "Designacion_Bandera" varchar(30) NOT NULL,
   CONSTRAINT "PK_Banderas" PRIMARY KEY ("Bandera_ID")
 )
@@ -30,7 +30,7 @@ GO
 
 CREATE TABLE "Bitacoras"
 (
-  "Bitacora_ID"      integer      NOT NULL,
+  "Bitacora_ID"      integer      NOT NULL IDENTITY(1,1),
   "Fecha_de_entrada" datetime     NOT NULL,
   "Nota"             varchar(200) NOT NULL,
   "Ciudades_ID"      integer      NOT NULL,
@@ -40,7 +40,7 @@ GO
 
 CREATE TABLE "Buques"
 (
-  "Buque_ID"                integer     NOT NULL,
+  "Buque_ID"                integer     NOT NULL IDENTITY(1,1),
   "Contenedor_ID"           integer     NOT NULL,
   "Carga_ID"                integer     NOT NULL,
   "Nombre"                  varchar(20) NOT NULL,
@@ -57,7 +57,7 @@ GO
 
 CREATE TABLE "Cargas"
 (
-  "Carga_ID"     integer     NOT NULL,
+  "Carga_ID"     integer     NOT NULL IDENTITY(1,1),
   "Peso"         decimal(2)  NOT NULL,
   "Descripcion"  varchar(80) NOT NULL,
   "Procedencia"  integer    ,
@@ -68,7 +68,7 @@ GO
 
 CREATE TABLE "Cargos_Imputados"
 (
-  "Delitos_ID"              integer      NOT NULL,
+  "Delitos_ID"              integer      NOT NULL IDENTITY(1,1),
   "Lista_Cargos"            varchar(200) NOT NULL,
   "Fecha_Emision_Detencion" datetime     NOT NULL,
   CONSTRAINT "PK_Cargos_Imputados" PRIMARY KEY ("Delitos_ID")
@@ -77,7 +77,7 @@ GO
 
 CREATE TABLE "Categoria"
 (
-  "Categoria_ID"     integer     NOT NULL,
+  "Categoria_ID"     integer     NOT NULL IDENTITY(1,1),
   "Nombre_Categoria" varchar(20) NOT NULL,
   CONSTRAINT "PK_Categoria" PRIMARY KEY ("Categoria_ID")
 )
@@ -85,7 +85,7 @@ GO
 
 CREATE TABLE "Certificado_Arqueo"
 (
-  "Arqueo_ID"       integer    NOT NULL,
+  "Arqueo_ID"       integer    NOT NULL IDENTITY(1,1),
   "Tamaño"          INT        NOT NULL,
   "Tonelaje"        decimal(2) NOT NULL,
   "Capacidad_Carga" decimal(2) NOT NULL,
@@ -95,7 +95,7 @@ GO
 
 CREATE TABLE "Choferes"
 (
-  "Chofer_ID"      integer     NOT NULL,
+  "Chofer_ID"      integer     NOT NULL IDENTITY(1,1),
   "Nombre"         varchar(20) NOT NULL,
   "Edad"           numeric(2)  NOT NULL,
   "Identificacion" varchar(20) NOT NULL,
@@ -114,7 +114,7 @@ GO
 
 CREATE TABLE "Contenedores"
 (
-  "Contenedor_ID"        integer     NOT NULL,
+  "Contenedor_ID"        integer     NOT NULL IDENTITY(1,1),
   "Peso"                 decimal(2)  NOT NULL,
   "Descripcion"          varchar(80) NOT NULL,
   "Procedencia"          integer    ,
@@ -125,7 +125,7 @@ GO
 
 CREATE TABLE "Datos_Personas"
 (
-  "Datos_ID"             integer    NOT NULL,
+  "Datos_ID"             integer    NOT NULL IDENTITY(1,1),
   "Fecha_de_Nacimineto"  datetime   NOT NULL,
   "Nombre_Apellidos"     char(18)  ,
   "Equipaje_ID"          integer   ,
@@ -137,7 +137,7 @@ GO
 
 CREATE TABLE "Efectivos_de_Orden"
 (
-  "Agente_ID"               integer  NOT NULL,
+  "Agente_ID"               integer  NOT NULL IDENTITY(1,1),
   "Identificacion_Policial" char(18),
   "Datos_ID"                integer ,
   CONSTRAINT "PK_Efectivos_de_Orden" PRIMARY KEY ("Agente_ID")
@@ -146,7 +146,7 @@ GO
 
 CREATE TABLE "Empresas"
 (
-  "Empresa_ID"       integer     NOT NULL,
+  "Empresa_ID"       integer     NOT NULL IDENTITY(1,1),
   "Nombre_Empresa"   varchar(20) NOT NULL,
   "Rubro_Empresa_ID" integer     NOT NULL,
   CONSTRAINT "PK_Empresas" PRIMARY KEY ("Empresa_ID")
@@ -155,7 +155,7 @@ GO
 
 CREATE TABLE "Equipajes"
 (
-  "Equipaje_ID" integer     NOT NULL,
+  "Equipaje_ID" integer     NOT NULL IDENTITY(1,1),
   "Descripcion" varchar(20) NOT NULL,
   "Peso"        decimal(2)  NOT NULL,
   CONSTRAINT "PK_Equipajes" PRIMARY KEY ("Equipaje_ID")
@@ -164,7 +164,7 @@ GO
 
 CREATE TABLE "Identificacion_OMI"
 (
-  "OMI_ID"    char(18) NOT NULL,
+  "OMI_ID"    char(18) NOT NULL IDENTITY(1,1),
   "Arqueo_ID" integer  NOT NULL,
   CONSTRAINT "PK_Identificacion_OMI" PRIMARY KEY ("OMI_ID")
 )
@@ -172,7 +172,7 @@ GO
 
 CREATE TABLE "Inspecciones"
 (
-  "Inspeccion_ID"  integer     NOT NULL,
+  "Inspeccion_ID"  integer     NOT NULL IDENTITY(1,1),
   "Fecha_y_hora"   datetime    NOT NULL,
   "Resultados"     varchar(80) NOT NULL,
   "Requiza_ID"     integer    ,
@@ -185,7 +185,7 @@ GO
 
 CREATE TABLE "Inspectores"
 (
-  "Inspector_ID"          integer     NOT NULL,
+  "Inspector_ID"          integer     NOT NULL IDENTITY(1,1),
   "Datos_ID"              integer     NOT NULL,
   "Identificacion_Fiscal" varchar(20) NOT NULL,
   CONSTRAINT "PK_Inspectores" PRIMARY KEY ("Inspector_ID")
@@ -194,7 +194,7 @@ GO
 
 CREATE TABLE "Listado"
 (
-  "Listado_ID" integer  NOT NULL,
+  "Listado_ID" integer  NOT NULL IDENTITY(1,1),
   "Fecha"      datetime NOT NULL,
   CONSTRAINT "PK_Listado" PRIMARY KEY ("Listado_ID")
 )
@@ -210,7 +210,7 @@ GO
 
 CREATE TABLE "Maquinaria"
 (
-  "Maquinaria_ID" integer NOT NULL,
+  "Maquinaria_ID" integer NOT NULL IDENTITY(1,1),
   "Tipo_ID"       integer NOT NULL,
   "Operador_ID"   integer NOT NULL,
   CONSTRAINT "PK_Maquinaria" PRIMARY KEY ("Maquinaria_ID")
@@ -219,7 +219,7 @@ GO
 
 CREATE TABLE "Mercancia"
 (
-  "Mercancia_ID" integer     NOT NULL,
+  "Mercancia_ID" integer     NOT NULL IDENTITY(1,1),
   "Nombre"       varchar(30) NOT NULL,
   "Precio"       float       NOT NULL,
   "Categoria_ID" integer    ,
@@ -229,7 +229,7 @@ GO
 
 CREATE TABLE "Modelos_Vehiculo"
 (
-  "Modelo_ID"           integer     NOT NULL,
+  "Modelo_ID"           integer     NOT NULL IDENTITY(1,1),
   "Denominacion_Modelo" varchar(20) NOT NULL,
   CONSTRAINT "PK_Modelos_Vehiculo" PRIMARY KEY ("Modelo_ID")
 )
@@ -237,7 +237,7 @@ GO
 
 CREATE TABLE "Muelle"
 (
-  "Muelle_ID" integer     NOT NULL,
+  "Muelle_ID" integer     NOT NULL IDENTITY(1,1),
   "Nombre"    varchar(20) NOT NULL,
   CONSTRAINT "PK_Muelle" PRIMARY KEY ("Muelle_ID")
 )
@@ -255,7 +255,7 @@ GO
 
 CREATE TABLE "Operacion_Despachos"
 (
-  "Despacho_ID"       integer NOT NULL,
+  "Despacho_ID"       integer NOT NULL IDENTITY(1,1),
   "Terminal_Salida"   integer NOT NULL,
   "Terminal_Ingreso"  integer NOT NULL,
   "Vehiculo_ID"       integer NOT NULL,
@@ -268,7 +268,7 @@ CREATE TABLE "Operacion_Recepcion"
 (
   "Contenedor_ID" integer ,
   "Carga_ID"      integer ,
-  "Recepcion_ID"  integer  NOT NULL,
+  "Recepcion_ID"  integer  NOT NULL IDENTITY(1,1),
   "Fecha"         datetime NOT NULL,
   "Maquinaria_ID" integer ,
   CONSTRAINT "PK_Operacion_Recepcion" PRIMARY KEY ("Recepcion_ID")
@@ -277,7 +277,7 @@ GO
 
 CREATE TABLE "Operaciones_Muelle"
 (
-  "Atraco_ID"        integer     NOT NULL,
+  "Atraco_ID"        integer     NOT NULL IDENTITY(1,1),
   "Muelle_ID"        integer     NOT NULL,
   "Buque_ID"         integer     NOT NULL,
   "Descripcion"      varchar(80) NOT NULL,
@@ -289,7 +289,7 @@ GO
 
 CREATE TABLE "Operador"
 (
-  "Operador_ID" integer NOT NULL,
+  "Operador_ID" integer NOT NULL IDENTITY(1,1),
   "Datos_ID"    integer NOT NULL,
   CONSTRAINT "PK_Operador" PRIMARY KEY ("Operador_ID")
 )
@@ -298,7 +298,7 @@ GO
 CREATE TABLE "Orden_Envio"
 (
   "Buque_ID"   integer NOT NULL,
-  "OE_ID"      integer NOT NULL,
+  "OE_ID"      integer NOT NULL IDENTITY(1,1),
   "Listado_ID" integer,
   CONSTRAINT "PK_Orden_Envio" PRIMARY KEY ("OE_ID")
 )
@@ -307,7 +307,7 @@ GO
 CREATE TABLE "Orden_Servicio"
 (
   "Empresa_ID" integer NOT NULL,
-  "OS_ID"      integer NOT NULL,
+  "OS_ID"      integer NOT NULL IDENTITY(1,1),
   "Listado_ID" integer,
   "OE_ID"      integer,
   CONSTRAINT "PK_Orden_Servicio" PRIMARY KEY ("OS_ID")
@@ -316,7 +316,7 @@ GO
 
 CREATE TABLE "Pais"
 (
-  "Pais_ID"     integer     NOT NULL,
+  "Pais_ID"     integer     NOT NULL IDENTITY(1,1),
   "Nombre_Pais" varchar(20) NOT NULL,
   "Ciudades_ID" integer     NOT NULL,
   CONSTRAINT "PK_Pais" PRIMARY KEY ("Pais_ID")
@@ -325,7 +325,7 @@ GO
 
 CREATE TABLE "Pasajeros"
 (
-  "Identificacion_Pasajero" integer NOT NULL,
+  "Identificacion_Pasajero" integer NOT NULL IDENTITY(1,1),
   "Datos_ID"                integer NOT NULL,
   CONSTRAINT "PK_Pasajeros" PRIMARY KEY ("Identificacion_Pasajero")
 )
@@ -333,7 +333,7 @@ GO
 
 CREATE TABLE "Patio_de_Contenedores"
 (
-  "Patio_ID"     integer NOT NULL,
+  "Patio_ID"     integer NOT NULL IDENTITY(1,1),
   "Despacho_ID"  integer NOT NULL,
   "Seccion_ID"   integer NOT NULL,
   "Recepcion_ID" integer NOT NULL,
@@ -343,7 +343,7 @@ GO
 
 CREATE TABLE "Personas_Requizadas"
 (
-  "Requisitoradios_ID"   integer     NOT NULL,
+  "Requisitoradios_ID"   integer     NOT NULL IDENTITY(1,1),
   "Descripcion_Corporal" varchar(20) NOT NULL,
   "Datos_ID"             integer     NOT NULL,
   "Delitos_ID"           integer     NOT NULL,
@@ -353,16 +353,24 @@ GO
 
 CREATE TABLE "Requizados"
 (
-  "Requiza_ID"         integer      NOT NULL,
+  "Requiza_ID"         integer      NOT NULL IDENTITY(1,1),
   "Objetos"            varchar(120) NOT NULL,
   "Requisitoradios_ID" integer     ,
   CONSTRAINT "PK_Requizados" PRIMARY KEY ("Requiza_ID")
 )
 GO
 
+CREATE TABLE "Rol"
+(
+  "ID_Rol"      NOT NULL IDENTITY(1,1),
+  "Nombre_Rol" ,
+  CONSTRAINT "PK_Rol" PRIMARY KEY ("ID_Rol")
+)
+GO
+
 CREATE TABLE "Rubros_Empresas"
 (
-  "Rubro_Empresa_ID"  integer     NOT NULL,
+  "Rubro_Empresa_ID"  integer     NOT NULL IDENTITY(1,1),
   "Designacion_Rubro" varchar(30) NOT NULL,
   CONSTRAINT "PK_Rubros_Empresas" PRIMARY KEY ("Rubro_Empresa_ID")
 )
@@ -370,7 +378,7 @@ GO
 
 CREATE TABLE "Secciones"
 (
-  "Seccion_ID"         integer    NOT NULL,
+  "Seccion_ID"         integer    NOT NULL IDENTITY(1,1),
   "Numeracion_Seccion" varchar(4) NOT NULL,
   CONSTRAINT "PK_Secciones" PRIMARY KEY ("Seccion_ID")
 )
@@ -378,7 +386,7 @@ GO
 
 CREATE TABLE "Solicitudes"
 (
-  "Solicitud_ID"         integer   NOT NULL,
+  "Solicitud_ID"         integer   NOT NULL IDENTITY(1,1),
   "Hora_Primer_Contacto" datetime ,
   "Estado_Aprobacion"    varbinary NOT NULL,
   CONSTRAINT "PK_Solicitudes" PRIMARY KEY ("Solicitud_ID")
@@ -387,7 +395,7 @@ GO
 
 CREATE TABLE "Terminales"
 (
-  "Terminal_ID"    integer     NOT NULL,
+  "Terminal_ID"    integer     NOT NULL IDENTITY(1,1),
   "Identificacion" varchar(20) NOT NULL,
   CONSTRAINT "PK_Terminales" PRIMARY KEY ("Terminal_ID")
 )
@@ -395,7 +403,7 @@ GO
 
 CREATE TABLE "Tipo_de_Inspeccion"
 (
-  "Tipo_Inspec_ID"   integer     NOT NULL,
+  "Tipo_Inspec_ID"   integer     NOT NULL IDENTITY(1,1),
   "Designacion_Tipo" varchar(20) NOT NULL,
   CONSTRAINT "PK_Tipo_de_Inspeccion" PRIMARY KEY ("Tipo_Inspec_ID")
 )
@@ -403,7 +411,7 @@ GO
 
 CREATE TABLE "Tipo_Maquinaria"
 (
-  "Tipo_ID"                     integer     NOT NULL,
+  "Tipo_ID"                     integer     NOT NULL IDENTITY(1,1),
   "Designacion_Tipo_Maquinaria" varchar(20) NOT NULL,
   CONSTRAINT "PK_Tipo_Maquinaria" PRIMARY KEY ("Tipo_ID")
 )
@@ -412,15 +420,26 @@ GO
 CREATE TABLE "Tripulacion"
 (
   "Asignacion_ID"             integer NOT NULL,
-  "Identificacion_Tripulante" integer,
+  "Identificacion_Tripulante" integer NOT NULL IDENTITY(1,1),
   "Datos_ID"                  integer NOT NULL,
-  "Bitacora_ID"               integer
+  "Bitacora_ID"               integer,
+  CONSTRAINT "PK_Tripulacion" PRIMARY KEY ("Identificacion_Tripulante")
+)
+GO
+
+CREATE TABLE "Usuario"
+(
+  "Usuario_id"     int         NOT NULL IDENTITY(1,1),
+  "Nombre_Usuario" varchar(50) NOT NULL,
+  "Contraseña"     varchar(30) NOT NULL,
+  "ID_Rol"                     NOT NULL,
+  CONSTRAINT "PK_Usuario" PRIMARY KEY ("Usuario_id")
 )
 GO
 
 CREATE TABLE "Vehiculos"
 (
-  "Vehiculo_ID"      integer     NOT NULL,
+  "Vehiculo_ID"      integer     NOT NULL IDENTITY(1,1),
   "Capacidad"        decimal(2)  NOT NULL,
   "Matricula"        varchar(20) NOT NULL,
   "Chofer_ID"        integer     NOT NULL,
@@ -795,4 +814,10 @@ ALTER TABLE "Buques"
   ADD CONSTRAINT "FK_Inspecciones_TO_Buques"
     FOREIGN KEY ("Inspeccion_Ingreso")
     REFERENCES "Inspecciones" ("Inspeccion_ID")
+GO
+
+ALTER TABLE "Usuario"
+  ADD CONSTRAINT "FK_Rol_TO_Usuario"
+    FOREIGN KEY ("ID_Rol")
+    REFERENCES "Rol" ("ID_Rol")
 GO
