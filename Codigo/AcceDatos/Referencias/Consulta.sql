@@ -19,6 +19,14 @@ from Empresas
 /*Rubro de Empresa*/
 select *
 from Rubros_Empresas
+--Listar
+create or alter proc Rubro_Listar
+as
+select *
+from Rubros_Empresas
+go
+
+exec Rubro_Listar	
 --Insertar
 create or alter proc Rubro_Insertar
 @nombre varchar(40)
@@ -26,7 +34,7 @@ as
 insert into Rubros_Empresas (Designacion_Rubro)
 values (@nombre)
 go
-
+--
 exec Rubro_Insertar 'Alimentos en General'
 /*Orden*/
 

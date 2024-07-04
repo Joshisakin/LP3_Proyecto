@@ -25,7 +25,7 @@ namespace Interfaz
 
         private void btnIngreso_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
             MainControlador frm = new MainControlador();
             frm.Show();
         }

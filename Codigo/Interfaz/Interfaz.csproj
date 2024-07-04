@@ -52,6 +52,12 @@
     <Compile Include="FrmChild\FrmPaises.Designer.cs">
       <DependentUpon>FrmPaises.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmChild\FrmxRol\InspectorRol\FrmInspector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmChild\FrmxRol\InspectorRol\FrmInspector.Designer.cs">
+      <DependentUpon>FrmInspector.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmChild\FrmxRol\Controlador\MainControlador.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +104,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmChild\FrmPaises.resx">
       <DependentUpon>FrmPaises.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmChild\FrmxRol\InspectorRol\FrmInspector.resx">
+      <DependentUpon>FrmInspector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmChild\FrmxRol\Controlador\MainControlador.resx">
       <DependentUpon>MainControlador.cs</DependentUpon>

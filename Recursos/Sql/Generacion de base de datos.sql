@@ -1,4 +1,6 @@
-﻿
+﻿---Usuarios,Rol. Control de Acceso
+
+---Base de Datos General
 CREATE TABLE "Almacenes"
 (
   "Almacen_ID"   integer NOT NULL,
