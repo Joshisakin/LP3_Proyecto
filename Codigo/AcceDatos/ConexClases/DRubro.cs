@@ -17,7 +17,10 @@ namespace AcceDatos.ConexClases
             SqlConnection SqlCon = new SqlConnection();
             try
             {
-                SqlCon = Conexion.getInstancia().CrearConexion();
+                string servidor = Configuracion.Servidor;
+                string usuario = Configuracion.Usuario;
+                string clave = Configuracion.Clave;
+                SqlCon = Conexion.getInstancia(servidor, usuario, clave).CrearConexion();
                 SqlCommand Comando = new SqlCommand("Rubro_insertar", SqlCon);
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = Obj.Designacion_rubro;
@@ -28,10 +31,6 @@ namespace AcceDatos.ConexClases
             {
                 Rpta = ex.Message;
             }
-            finally
-            {
-                if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
-            }
             return Rpta;
         }
         public string Existe(string Valor)
@@ -40,7 +39,10 @@ namespace AcceDatos.ConexClases
             SqlConnection SqlCon = new SqlConnection();
             try
             {
-                SqlCon = Conexion.getInstancia().CrearConexion();
+                string servidor = Configuracion.Servidor;
+                string usuario = Configuracion.Usuario;
+                string clave = Configuracion.Clave;
+                SqlCon = Conexion.getInstancia(servidor, usuario, clave).CrearConexion();
                 SqlCommand Comando = new SqlCommand("Rubro_existe", SqlCon);
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@valor", SqlDbType.VarChar).Value = Valor;

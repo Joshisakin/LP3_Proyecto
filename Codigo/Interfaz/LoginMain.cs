@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Interfaz
 {
-    public partial class Login : Form
+    public partial class LoginMain : Form
     {
-        public Login()
+        public LoginMain()
         {
             InitializeComponent();
         }
@@ -25,9 +25,11 @@ namespace Interfaz
 
         private void btnIngreso_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
             MainControlador frm = new MainControlador();
             frm.Show();
+            frm.FormClosed += (s, args) => this.Close();
+
         }
     }
 }

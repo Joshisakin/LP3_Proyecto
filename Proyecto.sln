@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaz", "Codigo\Interfaz
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reglas.Negocio", "Codigo\Reglas de Negocio\Reglas.Negocio.csproj", "{C54B77ED-C11E-4724-AE36-800DE84ABDF1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlLogin", "SqlLogin\SqlLogin.csproj", "{38226350-10BB-4EE3-A4D1-D3B9FFB18FA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C54B77ED-C11E-4724-AE36-800DE84ABDF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C54B77ED-C11E-4724-AE36-800DE84ABDF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C54B77ED-C11E-4724-AE36-800DE84ABDF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38226350-10BB-4EE3-A4D1-D3B9FFB18FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38226350-10BB-4EE3-A4D1-D3B9FFB18FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38226350-10BB-4EE3-A4D1-D3B9FFB18FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38226350-10BB-4EE3-A4D1-D3B9FFB18FA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

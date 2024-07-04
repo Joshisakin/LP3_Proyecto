@@ -45,6 +45,7 @@
     <Compile Include="ConexClases\DRubro.cs" />
     <Compile Include="ConexClases\Solicitudes.cs" />
     <Compile Include="Conexion.cs" />
+    <Compile Include="Configuracion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

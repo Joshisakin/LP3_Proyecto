@@ -45,7 +45,7 @@ CREATE TABLE "Buques"
   "Carga_ID"                integer     NOT NULL,
   "Nombre"                  varchar(20) NOT NULL,
   "Inspeccion_Ingreso"      integer    ,
-  "OMI_ID"                  char(18)   ,
+  "OMI_ID"                  int   ,
   "Bandera_ID"              integer    ,
   "Solicitud_Atraco"        integer    ,
   "Identificacion_Pasajero" integer    ,
@@ -164,7 +164,7 @@ GO
 
 CREATE TABLE "Identificacion_OMI"
 (
-  "OMI_ID"    char(18) NOT NULL IDENTITY(1,1),
+  "OMI_ID"    integer NOT NULL IDENTITY(1,1),
   "Arqueo_ID" integer  NOT NULL,
   CONSTRAINT "PK_Identificacion_OMI" PRIMARY KEY ("OMI_ID")
 )
@@ -362,8 +362,8 @@ GO
 
 CREATE TABLE "Rol"
 (
-  "ID_Rol"      NOT NULL IDENTITY(1,1),
-  "Nombre_Rol" ,
+  "ID_Rol"     int   NOT NULL IDENTITY(1,1),
+  "Nombre_Rol" Varchar(20),
   CONSTRAINT "PK_Rol" PRIMARY KEY ("ID_Rol")
 )
 GO
@@ -432,7 +432,7 @@ CREATE TABLE "Usuario"
   "Usuario_id"     int         NOT NULL IDENTITY(1,1),
   "Nombre_Usuario" varchar(50) NOT NULL,
   "Contraseña"     varchar(30) NOT NULL,
-  "ID_Rol"                     NOT NULL,
+  "ID_Rol"         int         NOT NULL,
   CONSTRAINT "PK_Usuario" PRIMARY KEY ("Usuario_id")
 )
 GO

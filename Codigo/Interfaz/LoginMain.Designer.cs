@@ -1,6 +1,6 @@
 ﻿namespace Interfaz
 {
-    partial class Login
+    partial class LoginMain
     {
         /// <summary>
         /// Required designer variable.
